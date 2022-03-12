@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/docs/{file?}', [DocsController::class, 'index'])->name('docs.index');
+
 Route::get('/', function () {
     return view('welcome');
 });
