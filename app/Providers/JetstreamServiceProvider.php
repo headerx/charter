@@ -2,13 +2,13 @@
 
 namespace App\Providers;
 
-use App\Actions\Jetstream\AddTeamMember;
-use App\Actions\Jetstream\CreateTeam;
-use App\Actions\Jetstream\DeleteTeam;
-use App\Actions\Jetstream\DeleteUser;
-use App\Actions\Jetstream\InviteTeamMember;
-use App\Actions\Jetstream\RemoveTeamMember;
-use App\Actions\Jetstream\UpdateTeamName;
+use App\Actions\AddTeamMember as ActionsAddTeamMember;
+use App\Actions\CreateTeam as ActionsCreateTeam;
+use App\Actions\DeleteTeam as ActionsDeleteTeam;
+use App\Actions\DeleteUser as ActionsDeleteUser;
+use App\Actions\InviteTeamMember as ActionsInviteTeamMember;
+use App\Actions\RemoveTeamMember as ActionsRemoveTeamMember;
+use App\Actions\UpdateTeamName as ActionsUpdateTeamName;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Jetstream\Jetstream;
 
@@ -21,7 +21,7 @@ class JetstreamServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        Jetstream::ignoreRoutes();
     }
 
     /**
@@ -33,13 +33,13 @@ class JetstreamServiceProvider extends ServiceProvider
     {
         $this->configurePermissions();
 
-        Jetstream::createTeamsUsing(CreateTeam::class);
-        Jetstream::updateTeamNamesUsing(UpdateTeamName::class);
-        Jetstream::addTeamMembersUsing(AddTeamMember::class);
-        Jetstream::inviteTeamMembersUsing(InviteTeamMember::class);
-        Jetstream::removeTeamMembersUsing(RemoveTeamMember::class);
-        Jetstream::deleteTeamsUsing(DeleteTeam::class);
-        Jetstream::deleteUsersUsing(DeleteUser::class);
+        Jetstream::createTeamsUsing(ActionsCreateTeam::class);
+        Jetstream::updateTeamNamesUsing(ActionsUpdateTeamName::class);
+        Jetstream::addTeamMembersUsing(ActionsAddTeamMember::class);
+        Jetstream::inviteTeamMembersUsing(ActionsInviteTeamMember::class);
+        Jetstream::removeTeamMembersUsing(ActionsRemoveTeamMember::class);
+        Jetstream::deleteTeamsUsing(ActionsDeleteTeam::class);
+        Jetstream::deleteUsersUsing(ActionsDeleteUser::class);
     }
 
     /**
@@ -49,19 +49,10 @@ class JetstreamServiceProvider extends ServiceProvider
      */
     protected function configurePermissions()
     {
-        Jetstream::defaultApiTokenPermissions(['read']);
+        Jetstream::defaultApiTokenPermissions(['own:read']);
 
-        Jetstream::role('admin', 'Administrator', [
-            'create',
-            'read',
-            'update',
-            'delete',
-        ])->description('Administrator users can perform any action.');
-
-        Jetstream::role('editor', 'Editor', [
-            'read',
-            'create',
-            'update',
-        ])->description('Editor users have the ability to read, create, and update.');
+        foreach (config('roles') as $role => $options) {
+            Jetstream::role($role, $options['name'], array_keys($options['permissions']))->description($options['description']);
+        }
     }
 }

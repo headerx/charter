@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Actions\Fortify\CreateNewUser;
-use App\Actions\Fortify\ResetUserPassword;
-use App\Actions\Fortify\UpdateUserPassword;
-use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Actions\CreateNewUser as ActionsCreateNewUser;
+use App\Actions\ResetUserPassword as ActionsResetUserPassword;
+use App\Actions\UpdateUserPassword as ActionsUpdateUserPassword;
+use App\Actions\UpdateUserProfileInformation as ActionsUpdateUserProfileInformation;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -31,10 +31,10 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Fortify::createUsersUsing(CreateNewUser::class);
-        Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
-        Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
-        Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
+        Fortify::createUsersUsing(ActionsCreateNewUser::class);
+        Fortify::updateUserProfileInformationUsing(ActionsUpdateUserProfileInformation::class);
+        Fortify::updateUserPasswordsUsing(ActionsUpdateUserPassword::class);
+        Fortify::resetUserPasswordsUsing(ActionsResetUserPassword::class);
 
         RateLimiter::for('login', function (Request $request) {
             $email = (string) $request->email;

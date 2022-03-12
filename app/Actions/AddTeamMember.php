@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Actions\Jetstream;
+namespace App\Actions;
 
+use App\Aggregates\TeamAggregate;
+use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Jetstream\Contracts\AddsTeamMembers;
@@ -31,10 +33,11 @@ class AddTeamMember implements AddsTeamMembers
 
         AddingTeamMember::dispatch($team, $newTeamMember);
 
-        $team->users()->attach(
-            $newTeamMember,
-            ['role' => $role]
-        );
+        TeamAggregate::retrieve($team->uuid)->addMember(
+            teamUuid: $team->uuid,
+            email: $newTeamMember->email,
+            role: $role,
+        )->persist();
 
         TeamMemberAdded::dispatch($team, $newTeamMember);
     }
@@ -69,8 +72,8 @@ class AddTeamMember implements AddsTeamMembers
         return array_filter([
             'email' => ['required', 'email', 'exists:users'],
             'role' => Jetstream::hasRoles()
-                            ? ['required', 'string', new Role]
-                            : null,
+                ? ['required', 'string', new Role]
+                : null,
         ]);
     }
 
@@ -85,7 +88,9 @@ class AddTeamMember implements AddsTeamMembers
     {
         return function ($validator) use ($team, $email) {
             $validator->errors()->addIf(
-                $team->hasUserWithEmail($email),
+                (User::where('email', $email)->first())
+                    ->teams()
+                    ->where('teams.id', $team->id)->exists(),
                 'email',
                 __('This user already belongs to the team.')
             );

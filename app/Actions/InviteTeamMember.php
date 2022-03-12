@@ -1,19 +1,24 @@
 <?php
 
-namespace App\Actions\Jetstream;
+namespace App\Actions;
 
+use App\Aggregates\TeamAggregate;
+use App\Models\TeamInvitation as ModelsTeamInvitation;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-use Laravel\Jetstream\Contracts\AddsTeamMembers;
-use Laravel\Jetstream\Events\AddingTeamMember;
-use Laravel\Jetstream\Events\TeamMemberAdded;
+use Illuminate\Validation\Rule;
+use Laravel\Jetstream\Contracts\InvitesTeamMembers;
+use Laravel\Jetstream\Events\InvitingTeamMember;
 use Laravel\Jetstream\Jetstream;
+use Laravel\Jetstream\Mail\TeamInvitation;
 use Laravel\Jetstream\Rules\Role;
+use Str;
 
-class AddTeamMember implements AddsTeamMembers
+class InviteTeamMember implements InvitesTeamMembers
 {
     /**
-     * Add a new team member to the given team.
+     * Invite a new team member to the given team.
      *
      * @param  mixed  $user
      * @param  mixed  $team
@@ -21,26 +26,29 @@ class AddTeamMember implements AddsTeamMembers
      * @param  string|null  $role
      * @return void
      */
-    public function add($user, $team, string $email, string $role = null)
+    public function invite($user, $team, string $email, string $role = null)
     {
         Gate::forUser($user)->authorize('addTeamMember', $team);
 
         $this->validate($team, $email, $role);
 
-        $newTeamMember = Jetstream::findUserByEmailOrFail($email);
+        InvitingTeamMember::dispatch($team, $email, $role);
 
-        AddingTeamMember::dispatch($team, $newTeamMember);
+        $invitionUuid = Str::uuid();
 
-        $team->users()->attach(
-            $newTeamMember,
-            ['role' => $role]
-        );
+        TeamAggregate::retrieve($team->uuid)->inviteTeamMember(
+            email: $email,
+            role: $role,
+            invitationUuid: $invitionUuid,
+        )->persist();
 
-        TeamMemberAdded::dispatch($team, $newTeamMember);
+        $invitation = ModelsTeamInvitation::whereUuid($invitionUuid)->first();
+
+        Mail::to($email)->send(new TeamInvitation($invitation));
     }
 
     /**
-     * Validate the add member operation.
+     * Validate the invite member operation.
      *
      * @param  mixed  $team
      * @param  string  $email
@@ -52,25 +60,28 @@ class AddTeamMember implements AddsTeamMembers
         Validator::make([
             'email' => $email,
             'role' => $role,
-        ], $this->rules(), [
-            'email.exists' => __('We were unable to find a registered user with this email address.'),
+        ], $this->rules($team), [
+            'email.unique' => __('This user has already been invited to the team.'),
         ])->after(
             $this->ensureUserIsNotAlreadyOnTeam($team, $email)
         )->validateWithBag('addTeamMember');
     }
 
     /**
-     * Get the validation rules for adding a team member.
+     * Get the validation rules for inviting a team member.
      *
+     * @param  mixed  $team
      * @return array
      */
-    protected function rules()
+    protected function rules($team)
     {
         return array_filter([
-            'email' => ['required', 'email', 'exists:users'],
+            'email' => ['required', 'email', Rule::unique('team_invitations')->where(function ($query) use ($team) {
+                $query->where('team_id', $team->id);
+            })],
             'role' => Jetstream::hasRoles()
-                            ? ['required', 'string', new Role]
-                            : null,
+                ? ['required', 'string', new Role]
+                : null,
         ]);
     }
 
