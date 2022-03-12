@@ -28,7 +28,7 @@ class UserProjector extends Projector
         $mainUser->forceFill([
             'is_main_user' => true,
         ])->save();
-        
+
         if (! $mainUser->is_main_user) {
             return;
         }
@@ -115,7 +115,7 @@ class UserProjector extends Projector
 
     private function withPersonalTeam($userUuid, $userName, $teamUuid, $teamName = null)
     {
-        $teamName = $teamName ?: explode(' ', $userName, 2)[0] . "'s Team";
+        $teamName = $teamName ?: explode(' ', $userName, 2)[0] . "'s Organization";
 
         $teamAggregate = TeamAggregate::retrieve($teamUuid);
 

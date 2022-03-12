@@ -10,13 +10,13 @@
                 </x-slot>
 
                 <x-slot name="description">
-                    {{ __('Add a new team member to your team, allowing them to collaborate with you.') }}
+                    {{ __('Add a new organization member to your organization, allowing them to collaborate with you.') }}
                 </x-slot>
 
                 <x-slot name="form">
                     <div class="col-span-6">
                         <div class="max-w-xl text-sm text-gray-600">
-                            {{ __('Please provide the email address of the person you would like to add to this team.') }}
+                            {{ __('Please provide the email address of the person you would like to add to this organization.') }}
                         </div>
                     </div>
 
@@ -85,7 +85,7 @@
                 </x-slot>
 
                 <x-slot name="description">
-                    {{ __('These people have been invited to your team and have been sent an invitation email. They may join the team by accepting the email invitation.') }}
+                    {{ __('These people have been invited to your organization and have been sent an invitation email. They may join the organization by accepting the email invitation.') }}
                 </x-slot>
 
                 <x-slot name="content">
@@ -122,7 +122,7 @@
                 </x-slot>
 
                 <x-slot name="description">
-                    {{ __('All of the people that are part of this team.') }}
+                    {{ __('All of the people that are part of this organization.') }}
                 </x-slot>
 
                 <!-- Organization Member List -->
@@ -219,7 +219,7 @@
         </x-slot>
 
         <x-slot name="content">
-            {{ __('Are you sure you would like to leave this team?') }}
+            {{ __('Are you sure you would like to leave this organization?') }}
         </x-slot>
 
         <x-slot name="footer">
@@ -240,7 +240,7 @@
         </x-slot>
 
         <x-slot name="content">
-            {{ __('Are you sure you would like to remove this person from the team?') }}
+            {{ __('Are you sure you would like to remove this person from the organization?') }}
         </x-slot>
 
         <x-slot name="footer">
