@@ -3,12 +3,11 @@
 namespace App\Providers;
 
 use App\Actions\Tenancy\UpdateTeamLogo;
-use App\Tenancy;
+use App\Charter;
 use Illuminate\Support\ServiceProvider;
 
-class TenancyProvider extends ServiceProvider
+class CharterServiceProvider extends ServiceProvider
 {
-
     /**
      * Bootstrap services.
      *
@@ -16,6 +15,6 @@ class TenancyProvider extends ServiceProvider
      */
     public function boot()
     {
-        Tenancy::updateTeamLogoUsing(UpdateTeamLogo::class);
+        Charter::updateTeamLogoUsing(UpdateTeamLogo::class);
     }
 }

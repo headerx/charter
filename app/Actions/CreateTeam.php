@@ -3,6 +3,7 @@
 namespace App\Actions;
 
 use App\Aggregates\TeamAggregate;
+use Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -24,7 +25,7 @@ class CreateTeam implements CreatesTeams
         Gate::forUser($user)->authorize('create', Jetstream::newTeamModel());
 
         Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string','unique:teams,name', 'max:255'],
             'uuid' => ['nullable'],
         ])->validateWithBag('createTeam');
 
@@ -35,5 +36,10 @@ class CreateTeam implements CreatesTeams
         TeamAggregate::retrieve($uuid)->createTeam($user->uuid, $input['name'])->persist();
 
         return $user->fresh()->currentTeam;
+    }
+
+    public function redirectTo()
+    {
+        return route('teams.show', Auth::user()->currentTeam->uuid);
     }
 }
