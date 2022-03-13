@@ -18,7 +18,7 @@ class UpdateTeamDomainTest extends TestCase
 
         Livewire::test(UpdateTeamDomainForm::class, ['team' => $user->currentTeam])
                     ->set(['state' => ['domain' => 'test.test']])
-                    ->call('updateTeamName');
+                    ->call('updateTeamDomain');
 
         $this->assertCount(1, $user->fresh()->ownedTeams);
         $this->assertEquals('test.test', $user->currentTeam->fresh()->domain);

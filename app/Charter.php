@@ -59,7 +59,7 @@ class Charter
     {
         $host = $request->getHost();
 
-        if ($team = Team::where('name', $host)->first()) {
+        if ($team = Team::where('domain', $host)->first()) {
             session()->put('current_team_uuid', $team->uuid);
         }
     }

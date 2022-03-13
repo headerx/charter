@@ -42,7 +42,7 @@ class UpdateTeamDomainForm extends Component
      * @param  \Laravel\Jetstream\Contracts\UpdatesTeamDomains  $updater
      * @return void
      */
-    public function updateTeamName(UpdatesTeamDomains $updater)
+    public function updateTeamDomain(UpdatesTeamDomains $updater)
     {
         $this->resetErrorBag();
 
