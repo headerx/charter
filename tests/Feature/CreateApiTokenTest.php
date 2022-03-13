@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Jetstream\Features;
 use Laravel\Jetstream\Http\Livewire\ApiTokenManager;
+use Laravel\Jetstream\Jetstream;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -25,15 +26,15 @@ class CreateApiTokenTest extends TestCase
                     ->set(['createApiTokenForm' => [
                         'name' => 'Test Token',
                         'permissions' => [
-                            'read',
-                            'update',
+                            Jetstream::$permissions[0],
+                            Jetstream::$permissions[1],
                         ],
                     ]])
                     ->call('createApiToken');
 
         $this->assertCount(1, $user->fresh()->tokens);
         $this->assertEquals('Test Token', $user->fresh()->tokens->first()->name);
-        $this->assertTrue($user->fresh()->tokens->first()->can('read'));
-        $this->assertFalse($user->fresh()->tokens->first()->can('delete'));
+        $this->assertTrue($user->fresh()->tokens->first()->can(Jetstream::$permissions[0]));
+        $this->assertFalse($user->fresh()->tokens->first()->can(Jetstream::$permissions[2]));
     }
 }

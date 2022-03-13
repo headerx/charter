@@ -32,10 +32,13 @@ class Charter
 
     public static function ensureTeamForUser(Request $request)
     {
-        if (! $request->user()) {
+        if (! $request->user() || ! $request->user()->currentTeam) {
             return;
         }
-        if ($request->user() && $team = Team::where('uuid', $request->user()->currentTeam->uuid)->first()) {
+
+        $team = Team::where('uuid', $request->user()->currentTeam->uuid)->first();
+
+        if (isset($team->uuid)) {
             session()->put('current_team_uuid', $team->uuid);
         }
     }
