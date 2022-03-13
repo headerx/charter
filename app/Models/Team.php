@@ -47,8 +47,8 @@ class Team extends JetstreamTeam
         'deleted' => TeamDeleted::class,
     ];
 
-    public function configure(){
-
+    public function configure()
+    {
         config([
             'database.connections.team.database' => $this->database_name,
         ]);
@@ -62,8 +62,8 @@ class Team extends JetstreamTeam
         return $this;
     }
 
-    public function use(){
-
+    public function use()
+    {
         app()->forgetInstance('team');
 
         app()->instance('team', $this);

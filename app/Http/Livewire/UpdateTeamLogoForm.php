@@ -35,7 +35,6 @@ class UpdateTeamLogoForm extends Component
         $this->state = (Auth::user()->currentTeam)->withoutRelations()->toArray();
     }
 
-
     public function updateTeamLogo(UpdatesTeamLogo $updater)
     {
         $this->resetErrorBag();
