@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class Charter
 {
     /**
-     * Register a class / callback that should be used to update user profile information.
+     * Register a class / callback that should be used to update team logo.
      *
      * @param  string  $callback
      * @return void
