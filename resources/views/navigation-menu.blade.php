@@ -19,7 +19,7 @@
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
-                <!-- Teams Dropdown -->
+                <!-- Orgnizations Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                     <div class="relative ml-3">
                         <x-jet-dropdown align="right" width="60">
@@ -57,7 +57,7 @@
 
                                     <!-- Organization Switcher -->
                                     <div class="block px-4 py-2 text-xs text-gray-400">
-                                        {{ __('Switch Teams') }}
+                                        {{ __('Switch Orgnizations') }}
                                     </div>
 
                                     @foreach (Auth::user()->allTeams() as $team)
@@ -202,11 +202,11 @@
 
                     <!-- Organization Switcher -->
                     <div class="block px-4 py-2 text-xs text-gray-400">
-                        {{ __('Switch Teams') }}
+                        {{ __('Switch Orgnizations') }}
                     </div>
 
                     @foreach (Auth::user()->allTeams() as $team)
-                        <x-jet-switchable-team :team="$team" component="jet-responsive-nav-link" />
+                        <x-switchable-team :team="$team" component="jet-responsive-nav-link" />
                     @endforeach
                 @endif
             </div>
