@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Laravel\Jetstream\Events\TeamCreated;
 use Laravel\Jetstream\Events\TeamDeleted;
 use Laravel\Jetstream\Events\TeamUpdated;
@@ -44,4 +46,28 @@ class Team extends JetstreamTeam
         'updated' => TeamUpdated::class,
         'deleted' => TeamDeleted::class,
     ];
+
+    public function configure(){
+
+        config([
+            'database.connections.team.database' => $this->database_name,
+        ]);
+
+        DB::purge('team');
+
+        DB::reconnect('team');
+
+        Schema::connection('team')->getConnection()->reconnect();
+
+        return $this;
+    }
+
+    public function use(){
+
+        app()->forgetInstance('team');
+
+        app()->instance('team', $this);
+
+        return $this;
+    }
 }
