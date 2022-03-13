@@ -5,11 +5,11 @@ namespace App\Contracts;
 interface UpdatesTeamDomain
 {
     /**
-     * Validate and update the given model.
+     * Validate and update the given team's domain.
      *
-     * @param  mixed  $model
+     * @param  mixed  $team
      * @param  array  $input
      * @return void
      */
-    public function dummyFunction($model, array $input);
+    public function update($team, array $input);
 }

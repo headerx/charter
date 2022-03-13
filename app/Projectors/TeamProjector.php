@@ -9,7 +9,7 @@ use App\StorableEvents\TeamDeleted;
 use App\StorableEvents\TeamMemberAdded;
 use App\StorableEvents\TeamMemberInvited;
 use App\StorableEvents\TeamMemberRemoved;
-use App\StorableEvents\TeamUpdated;
+use App\StorableEvents\TeamNameUpdated;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Laravel\Jetstream\Jetstream;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
@@ -46,7 +46,7 @@ class TeamProjector extends Projector implements ShouldQueue
     public function onTeamMemberInvited(TeamMemberInvited $event)
     {
         $team = Team::whereUuid($event->teamUuid)->firstOrFail();
-        
+
         $team->teamInvitations()->create([
             'email' => $event->email,
             'role' => $event->role,
@@ -63,7 +63,7 @@ class TeamProjector extends Projector implements ShouldQueue
         $team->removeUser($teamMember);
     }
 
-    public function onTeamUpdated(TeamUpdated $event)
+    public function onTeamNameUpdated(TeamNameUpdated $event)
     {
         $team = Team::whereUuid($event->teamUuid)->first();
 

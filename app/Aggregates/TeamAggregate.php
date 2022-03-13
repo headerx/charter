@@ -7,7 +7,7 @@ use App\StorableEvents\TeamDeleted;
 use App\StorableEvents\TeamMemberAdded;
 use App\StorableEvents\TeamMemberInvited;
 use App\StorableEvents\TeamMemberRemoved;
-use App\StorableEvents\TeamUpdated;
+use App\StorableEvents\TeamNameUpdated;
 use Spatie\EventSourcing\AggregateRoots\AggregateRoot;
 
 class TeamAggregate extends AggregateRoot
@@ -76,10 +76,10 @@ class TeamAggregate extends AggregateRoot
         return $this;
     }
 
-    public function updateTeam(
+    public function updateTeamName(
         string $name,
     ) {
-        $this->recordThat(new TeamUpdated(
+        $this->recordThat(new TeamNameUpdated(
             teamUuid: $this->uuid(),
             name: $name,
         ));
