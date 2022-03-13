@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Actions\Tenancy;
+namespace App\Actions\Charter;
 
-use App\Aggregates\TeamAggregate;
-use App\Aggregates\UserAggregate;
 use App\Contracts\UpdatesTeamLogo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 class UpdateTeamLogo implements UpdatesTeamLogo
 {

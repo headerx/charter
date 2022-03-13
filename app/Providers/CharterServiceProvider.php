@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Actions\Charter\UpdateTeamDomain;
-use App\Actions\Tenancy\UpdateTeamLogo;
+use App\Actions\Charter\UpdateTeamLogo;
 use App\Charter;
 use Illuminate\Support\ServiceProvider;
 
