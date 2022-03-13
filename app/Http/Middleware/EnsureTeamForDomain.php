@@ -2,11 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Team;
+use App\Charter;
 use Closure;
 use Illuminate\Http\Request;
 
-class EnforceCharter
+class EnsureTeamForDomain
 {
     /**
      * Handle an incoming request.
@@ -17,13 +17,7 @@ class EnforceCharter
      */
     public function handle(Request $request, Closure $next)
     {
-        $host = $request->getHost();
-
-        if ($request->user() && $team = Team::where('uuid', $request->user()->currentTeam->uuid)->first()) {
-            session()->put('current_team_uuid', $team->uuid);
-        } elseif ($team = Team::where('name', $host)->first()) {
-            session()->put('current_team_uuid', $team->uuid);
-        }
+        Charter::ensureTeamForDomain($request);
 
         return $next($request);
     }
