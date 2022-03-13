@@ -18,6 +18,7 @@ return new class extends Migration
             $table->uuid();
             $table->string('url');
             $table->string('title');
+            $table->string('menu');
             $table->timestamps();
         });
     }
