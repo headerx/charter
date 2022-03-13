@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Contracts\UpdatesTeamDomain;
+use App\Contracts\UpdatesTeamDomains;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -39,10 +39,10 @@ class UpdateTeamDomainForm extends Component
     /**
      * Update the team's name.
      *
-     * @param  \Laravel\Jetstream\Contracts\UpdatesTeamNames  $updater
+     * @param  \Laravel\Jetstream\Contracts\UpdatesTeamDomains  $updater
      * @return void
      */
-    public function updateTeamName(UpdatesTeamDomain $updater)
+    public function updateTeamName(UpdatesTeamDomains $updater)
     {
         $this->resetErrorBag();
 

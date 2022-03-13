@@ -16,7 +16,7 @@ class CharterServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Charter::updateTeamLogoUsing(UpdateTeamLogo::class);
-        Charter::updateTeamDomain(UpdateTeamDomain::class);
+        Charter::updateTeamLogosUsing(UpdateTeamLogo::class);
+        Charter::updateTeamDomainsUsing(UpdateTeamDomain::class);
     }
 }

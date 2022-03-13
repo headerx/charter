@@ -2,14 +2,15 @@
 
 namespace App\Contracts;
 
-interface UpdatesTeamDomain
+interface UpdatesTeamDomains
 {
     /**
      * Validate and update the given team's domain.
      *
+     * @param  mixed  $user
      * @param  mixed  $team
      * @param  array  $input
      * @return void
      */
-    public function update($team, array $input);
+    public function update($user, $team, array $input);
 }

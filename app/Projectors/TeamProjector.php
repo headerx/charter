@@ -6,6 +6,7 @@ use App\Models\Team;
 use App\Models\User;
 use App\StorableEvents\TeamCreated;
 use App\StorableEvents\TeamDeleted;
+use App\StorableEvents\TeamDomainUpdated;
 use App\StorableEvents\TeamMemberAdded;
 use App\StorableEvents\TeamMemberInvited;
 use App\StorableEvents\TeamMemberRemoved;
@@ -69,6 +70,15 @@ class TeamProjector extends Projector implements ShouldQueue
 
         $team->forceFill([
             'name' => $event->name,
+        ])->save();
+    }
+
+    public function onTeamDomainUpdated(TeamDomainUpdated $event)
+    {
+        $team = Team::whereUuid($event->teamUuid)->first();
+
+        $team->forceFill([
+            'domain' => $event->domain,
         ])->save();
     }
 }

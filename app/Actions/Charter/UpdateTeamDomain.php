@@ -3,11 +3,12 @@
 namespace App\Actions\Charter;
 
 use App\Aggregates\TeamAggregate;
+use App\Contracts\UpdatesTeamDomains;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Validator;
 
-class UpdateTeamDomain
+class UpdateTeamDomain implements UpdatesTeamDomains
 {
     /**
      * Validate and update the given team's domain.
@@ -27,7 +28,7 @@ class UpdateTeamDomain
 
         TeamAggregate::retrieve(
             uuid: $team->uuid
-        )->updateTeam(
+        )->updateTeamDomain(
             domain: $input['domain']
         )->persist();
     }

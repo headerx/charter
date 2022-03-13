@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Contracts\UpdatesTeamDomain;
+use App\Contracts\UpdatesTeamDomains;
 use App\Contracts\UpdatesTeamLogo;
 use App\Models\Team;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ class Charter
      * @param  string  $callback
      * @return void
      */
-    public static function updateTeamLogoUsing(string $callback)
+    public static function updateTeamLogosUsing(string $callback)
     {
         app()->singleton(UpdatesTeamLogo::class, $callback);
     }
@@ -26,9 +26,9 @@ class Charter
      * @param  string  $callback
      * @return void
      */
-    public static function updateTeamDomain(string $callback)
+    public static function updateTeamDomainsUsing(string $callback)
     {
-        app()->singleton(UpdatesTeamDomain::class, $callback);
+        app()->singleton(UpdatesTeamDomains::class, $callback);
     }
 
     public static function currentTeam()
