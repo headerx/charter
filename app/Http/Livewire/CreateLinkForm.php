@@ -20,11 +20,9 @@ class CreateLinkForm extends Component
 
     public $creatingNewLink = false;
 
-    protected $listeners = [
-        'creatingNewLink' => 'showNewLinkForm',
-    ];
+    protected $listeners = ['creatingNewLink' => 'showForm'];
 
-    public function showNewLinkForm()
+    public function showForm()
     {
         $this->creatingNewLink = true;
     }

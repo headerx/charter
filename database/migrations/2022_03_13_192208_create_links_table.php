@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->string('label')->nullable();
             $table->string('role')->nullable();
+            $table->string('view')->nullable();
             $table->timestamps();
         });
     }

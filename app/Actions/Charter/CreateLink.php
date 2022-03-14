@@ -39,6 +39,7 @@ class CreateLink implements CreatesLink
             teamUuid: $team->uuid,
             userUuid: $user->uuid,
             role: $input['role'],
+            userUuid: $user->uuid,
             type: $input['type'],
             target: $input['target'],
             url: $input['url'],
