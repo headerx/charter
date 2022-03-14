@@ -46,4 +46,9 @@ class CreateLink implements CreatesLink
             label: $input['label'],
         )->persist();
     }
+
+    public function redirectTo()
+    {
+        return back();
+    }
 }
