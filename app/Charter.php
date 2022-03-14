@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Contracts\CreatesLink;
 use App\Contracts\UpdatesTeamDomains;
 use App\Contracts\UpdatesTeamLogo;
 use App\Models\Team;
@@ -9,6 +10,19 @@ use Illuminate\Http\Request;
 
 class Charter
 {
+
+
+    /**
+     * Register a class / callback that should be used to create a link.
+     *
+     * @param  string  $callback
+     * @return void
+     */
+    public static function createLinksUsing(string $callback)
+    {
+        app()->singleton(CreatesLink::class, $callback);
+    }
+
     /**
      * Register a class / callback that should be used to update team logo.
      *
