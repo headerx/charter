@@ -17,6 +17,7 @@ class Link extends Model
     protected $casts = [
         'type' => LinkType::class,
         'target' => LinkTarget::class,
+        'view' => LinkMenu::class,
     ];
 
     protected $childTypes = [

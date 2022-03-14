@@ -29,6 +29,7 @@ class CreateLink implements CreatesLink
             'url' => ['required', 'string', 'max:255'],
             'title' => ['string', 'nullable', 'max:255'],
             'label' => ['string', 'nullable', 'max:255'],
+            'view' => [new Enum(LinkMenu::class), 'nullable'],
         ])->validateWithBag('createLink');
 
         $uuid = Str::uuid();
