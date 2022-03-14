@@ -18,6 +18,17 @@ class CreateLinkForm extends Component
      */
     public $state = [];
 
+    public $creatingNewLink = false;
+
+    protected $listeners = [
+        'creatingNewLink' => 'showNewLinkForm',
+    ];
+
+    public function showNewLinkForm()
+    {
+        $this->creatingNewLink = true;
+    }
+
     /**
      * Create a new team.
      *
