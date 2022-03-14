@@ -16,17 +16,19 @@ class LinkAggregate extends AggregateRoot
         string $url,
         ?string $title = null,
         ?string $label = null,
+        ?string $view = null
     ) {
         $this->recordThat(new LinkCreated(
             $this->uuid(),
-          teamUuid:  $teamUuid,
-          userUuid:  $userUuid,
-          role:  $role,
-          type:  $type,
-          target:  $target,
-          url:  $url,
-          title:  $title,
-          label:  $label,
+            teamUuid:  $teamUuid,
+            userUuid:  $userUuid,
+            role:  $role,
+            type:  $type,
+            target:  $target,
+            url:  $url,
+            title:  $title,
+            label:  $label,
+            view:  $view,
         ));
 
         return $this;

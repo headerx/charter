@@ -18,7 +18,7 @@ class CreateLinkForm extends Component
      */
     public $state = [];
 
-    public $creatingNewLink = false;
+    public $creatingNewLink = true;
 
     protected $listeners = ['creatingNewLink' => 'showForm'];
 
