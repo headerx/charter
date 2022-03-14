@@ -15,7 +15,6 @@ class LinkCreated extends ShouldBeStored
         public string $url,
         public ?string $title = null,
         public ?string $label = null,
-    )
-    {
+    ) {
     }
 }

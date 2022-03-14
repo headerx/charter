@@ -31,5 +31,4 @@ class LinkProjector extends Projector
             'role' => $event->role,
         ]);
     }
-
 }

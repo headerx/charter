@@ -38,7 +38,8 @@ class CreateLinkTest extends TestCase
         ]);
     }
 
-    public function test_creating_link_requires_validation(){
+    public function test_creating_link_requires_validation()
+    {
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 
         Livewire::test(CreateLinkForm::class)

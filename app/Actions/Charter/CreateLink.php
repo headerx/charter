@@ -22,7 +22,6 @@ class CreateLink implements CreatesLink
      */
     public function create($user, $team, array $input)
     {
-
         Validator::make($input, [
             'role' => ['required', 'string', 'max:255'],
             'type' => [new Enum(LinkType::class), 'nullable'],

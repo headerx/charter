@@ -10,8 +10,6 @@ use Illuminate\Http\Request;
 
 class Charter
 {
-
-
     /**
      * Register a class / callback that should be used to create a link.
      *
