@@ -9,6 +9,7 @@ class LinkCreated extends ShouldBeStored
     public function __construct(
         public string $linkUuid,
         public string $teamUuid,
+        public ?string $userUuid = null,
         public string $role,
         public ?string $type = null,
         public ?string $target = null,

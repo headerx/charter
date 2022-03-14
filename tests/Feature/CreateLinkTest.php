@@ -31,6 +31,8 @@ class CreateLinkTest extends TestCase
 
         $this->assertCount(1, Link::all());
         $this->assertDatabaseHas('links', [
+            'team_id' => $user->currentTeam->id,
+            'user_id' => $user->id,
             'target' => '_self',
             'url' => 'https://example.com',
             'title' => 'Example',

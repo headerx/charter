@@ -37,6 +37,7 @@ class CreateLink implements CreatesLink
 
         $linkAggregate->createLink(
             teamUuid: $team->uuid,
+            userUuid: $user->uuid,
             role: $input['role'],
             type: $input['type'],
             target: $input['target'],

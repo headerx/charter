@@ -9,6 +9,7 @@ class LinkAggregate extends AggregateRoot
 {
     public function createLink(
         string $teamUuid,
+        ?string $userUuid = null,
         string $role,
         ?string $type = null,
         ?string $target = null,
@@ -18,13 +19,14 @@ class LinkAggregate extends AggregateRoot
     ) {
         $this->recordThat(new LinkCreated(
             $this->uuid(),
-            $teamUuid,
-            $role,
-            $type,
-            $target,
-            $url,
-            $title,
-            $label,
+          teamUuid:  $teamUuid,
+          userUuid:  $userUuid,
+          role:  $role,
+          type:  $type,
+          target:  $target,
+          url:  $url,
+          title:  $title,
+          label:  $label,
         ));
 
         return $this;

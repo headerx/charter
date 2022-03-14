@@ -18,12 +18,13 @@ return new class extends Migration
         Schema::create('links', function (Blueprint $table) {
             $table->id();
             $table->uuid();
+            $table->foreignId('team_id')->nullable();
+            $table->foreignId('user_id')->nullable();
             $table->string('type')->default(LinkType::InternalLink->value);
             $table->string('target')->default(LinkTargetTypes::Self->value);
             $table->string('url');
             $table->string('title')->nullable();
             $table->string('label')->nullable();
-            $table->foreignId('team_id')->nullable();
             $table->string('role')->nullable();
             $table->timestamps();
         });
