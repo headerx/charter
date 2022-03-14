@@ -4,7 +4,7 @@ namespace App\Actions\Charter;
 
 use App\Aggregates\LinkAggregate;
 use App\Contracts\CreatesLink;
-use App\Models\LinkTargetTypes;
+use App\Models\LinkTarget;
 use App\Models\LinkType;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -25,7 +25,7 @@ class CreateLink implements CreatesLink
         Validator::make($input, [
             'role' => ['required', 'string', 'max:255'],
             'type' => [new Enum(LinkType::class), 'nullable'],
-            'target' => [new Enum(LinkTargetTypes::class), 'nullable'],
+            'target' => [new Enum(LinkTarget::class), 'nullable'],
             'url' => ['required', 'string', 'max:255'],
             'title' => ['string', 'nullable', 'max:255'],
             'label' => ['string', 'nullable', 'max:255'],

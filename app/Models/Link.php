@@ -16,7 +16,7 @@ class Link extends Model
 
     protected $casts = [
         'type' => LinkType::class,
-        'target' => LinkTargetTypes::class,
+        'target' => LinkTarget::class,
     ];
 
     protected $childTypes = [

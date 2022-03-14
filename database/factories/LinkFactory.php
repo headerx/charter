@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\LinkType;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use LinkTargetTypes;
+use LinkTarget;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Link>
@@ -23,7 +23,7 @@ class LinkFactory extends Factory
             'url' => $this->faker->url,
             'title' => $this->faker->sentence,
             'label' => $this->faker->word,
-            'target' => LinkTargetTypes::Self->value,
+            'target' => LinkTarget::Self->value,
         ];
     }
 
@@ -31,7 +31,7 @@ class LinkFactory extends Factory
     {
         return $this->state(function(){
             return [
-                'target' => LinkTargetTypes::Blank->value,
+                'target' => LinkTarget::Blank->value,
             ];
         });
     }
@@ -40,7 +40,7 @@ class LinkFactory extends Factory
     {
         return $this->state(function(){
             return [
-                'target' => LinkTargetTypes::Self->value,
+                'target' => LinkTarget::Self->value,
             ];
         });
     }
@@ -49,7 +49,7 @@ class LinkFactory extends Factory
     {
         return $this->state(function(){
             return [
-                'target' => LinkTargetTypes::Parent->value,
+                'target' => LinkTarget::Parent->value,
             ];
         });
     }
@@ -58,7 +58,7 @@ class LinkFactory extends Factory
     {
         return $this->state(function(){
             return [
-                'target' => LinkTargetTypes::Top->value,
+                'target' => LinkTarget::Top->value,
             ];
         });
     }

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-enum LinkTargetTypes: string
+enum LinkTarget: string
 {
     case Blank = '_blank';
     case Self = '_self';

@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\LinkTargetTypes;
+use App\Models\LinkTarget;
 use App\Models\LinkType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('team_id')->nullable();
             $table->foreignId('user_id')->nullable();
             $table->string('type')->default(LinkType::InternalLink->value);
-            $table->string('target')->default(LinkTargetTypes::Self->value);
+            $table->string('target')->default(LinkTarget::Self->value);
             $table->string('url');
             $table->string('title')->nullable();
             $table->string('label')->nullable();
