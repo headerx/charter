@@ -50,6 +50,8 @@ class CreateLink implements CreatesLink
 
     public function redirectTo()
     {
-        return back();
+        session()->flash('flash.banner', 'Link created successfully.');
+        session()->flash('flash.bannerStyle', 'success');
+        return route('dashboard');
     }
 }

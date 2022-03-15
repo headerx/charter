@@ -3,13 +3,17 @@
 namespace App\Http\Livewire;
 
 use App\Contracts\CreatesLink;
+use App\Models\LinkTarget;
+use App\Models\LinkType;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Jetstream\InteractsWithBanner;
 use Laravel\Jetstream\RedirectsActions;
 use Livewire\Component;
 
 class CreateLinkForm extends Component
 {
     use RedirectsActions;
+    use InteractsWithBanner;
 
     /**
      * The component's state.
@@ -18,9 +22,22 @@ class CreateLinkForm extends Component
      */
     public $state = [];
 
-    public $creatingNewLink = true;
+    public $creatingNewLink = false;
 
     protected $listeners = ['creatingNewLink' => 'showForm'];
+
+    public function mount()
+    {
+        $this->state = [
+            'role' => array_keys(config('roles'))[0],
+            'type' => LinkType::InternalLink->value,
+            'target' => LinkTarget::Self->value,
+            'url' => '',
+            'title' => '',
+            'label' => '',
+            'view' => '',
+        ];
+    }
 
     public function showForm()
     {
@@ -39,7 +56,9 @@ class CreateLinkForm extends Component
 
         $creator->create(Auth::user(), $this->team, $this->state);
 
-        return $this->redirectPath($creator);
+        $this->creatingNewLink = false;
+
+        $this->banner('Link created successfully.', 'success');
     }
 
     /**
