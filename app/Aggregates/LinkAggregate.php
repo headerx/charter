@@ -9,11 +9,11 @@ class LinkAggregate extends AggregateRoot
 {
     public function createLink(
         string $teamUuid,
+        string $url,
+        ?string $role = null,
         ?string $userUuid = null,
-        string $role,
         ?string $type = null,
         ?string $target = null,
-        string $url,
         ?string $title = null,
         ?string $label = null,
         ?string $view = null

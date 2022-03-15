@@ -9,11 +9,11 @@ class LinkCreated extends ShouldBeStored
     public function __construct(
         public string $linkUuid,
         public string $teamUuid,
+        public string $url,
+        public ?string $role = null,
         public ?string $userUuid = null,
-        public string $role,
         public ?string $type = null,
         public ?string $target = null,
-        public string $url,
         public ?string $title = null,
         public ?string $label = null,
         public ?string $view = null,

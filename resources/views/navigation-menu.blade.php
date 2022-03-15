@@ -16,7 +16,7 @@
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
 
-                    @foreach (\App\Models\Link::all() as $link)
+                    @foreach (\App\Models\Link::where('view', \App\Models\LinkMenu::NavigationMenu->value )->get() as $link)
                     @if(Gate::allows('view', $link))
                     <x-jet-nav-link href="{{ $link->url }}" target="{{ $link->target->value }}"
                         title="{{ $link->title }}">
@@ -26,8 +26,8 @@
 
                     @endforeach
 
-                    <x-jet-nav-link href="#" onclick="Livewire.emit('creatingNewLink')">
-                        {{ __('Add Link') }}
+                    <x-jet-nav-link href="#" onclick="Livewire.emit('creatingNewLink', '{{ \App\Models\LinkMenu::NavigationMenu->value }}')">
+                        {{ __('Add Bookmark') }}
                     </x-jet-nav-link>
                 </div>
             </div>

@@ -95,8 +95,23 @@
                     <x-jet-input-error for="role" class="w-full mt-2" />
                 </div>
 
+                <div class="inline-flex flex-row justify-between w-full sm:col-span-4">
+                    <x-jet-label class="w-12 mt-4 mr-2" for="View" value="{{ __('Menu') }}" />
+
+                    <x-select id="view" class="block w-full mt-1" wire:model.defer="state.view">
+
+                        @foreach(\App\Models\LinkMenu::cases() as $view)
+                        <option value="{{ $view->value }}">{{ $view->prettyName() }}</option>
+                        @endforeach
+
+                    </x-select>
+
+                    <x-jet-input-error for="view" class="w-full mt-2" />
+                </div>
+
             </div>
         </div>
+        <x-jet-input-error for="view" class="w-full mt-2" />
     </x-slot>
 
     <x-slot name="footer">

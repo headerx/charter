@@ -39,9 +39,10 @@ class CreateLinkForm extends Component
         ];
     }
 
-    public function showForm()
+    public function showForm($view)
     {
         $this->creatingNewLink = true;
+        $this->state['view'] = $view;
     }
 
     /**
@@ -59,6 +60,7 @@ class CreateLinkForm extends Component
         $this->creatingNewLink = false;
 
         $this->banner('Link created successfully.', 'success');
+        $this->emit('refresh-navigation-menu');
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Actions\Charter;
 
 use App\Aggregates\LinkAggregate;
 use App\Contracts\CreatesLink;
+use App\Models\LinkMenu;
 use App\Models\LinkTarget;
 use App\Models\LinkType;
 use Illuminate\Support\Facades\Validator;
@@ -45,6 +46,7 @@ class CreateLink implements CreatesLink
             url: $input['url'],
             title: $input['title'],
             label: $input['label'],
+            view: $input['view'],
         )->persist();
     }
 
