@@ -28,6 +28,7 @@ class LinkProjector extends Projector
             'label' => $event->label,
             'role' => $event->role,
             'view' => $event->view,
+            'icon' => $event->icon,
         ]);
     }
 }

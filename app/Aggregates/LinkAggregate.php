@@ -16,7 +16,8 @@ class LinkAggregate extends AggregateRoot
         ?string $target = null,
         ?string $title = null,
         ?string $label = null,
-        ?string $view = null
+        ?string $view = null,
+        ?string $icon = null,
     ) {
         $this->recordThat(new LinkCreated(
             $this->uuid(),
@@ -29,6 +30,7 @@ class LinkAggregate extends AggregateRoot
             title:  $title,
             label:  $label,
             view:  $view,
+            icon:  $icon,
         ));
 
         return $this;

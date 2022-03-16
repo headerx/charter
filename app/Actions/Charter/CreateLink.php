@@ -31,6 +31,7 @@ class CreateLink implements CreatesLink
             'title' => ['string', 'nullable', 'max:255'],
             'label' => ['string', 'nullable', 'max:255'],
             'view' => [new Enum(LinkMenu::class), 'nullable'],
+            'icon' => ['exists:icons,name', 'nullable'],
         ])->validateWithBag('createLink');
 
         $uuid = Str::uuid();
@@ -47,6 +48,7 @@ class CreateLink implements CreatesLink
             title: $input['title'],
             label: $input['label'],
             view: $input['view'],
+            icon: $input['icon'],
         )->persist();
     }
 

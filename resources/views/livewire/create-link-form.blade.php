@@ -7,7 +7,7 @@
         <div class="inline-flex flex-row justify-between w-full sm:col-span-4">
             <x-jet-label class="w-12 mt-4 mr-2" for="Label" value="{{ __('Name') }}" />
 
-            <x-jet-input id="label" type="text" class="block w-full mt-1 rounded-none" wire:model="state.label" {{--
+            <x-jet-input id="label" type="text" class="block w-full mt-1" wire:model="state.label" {{--
                 :disabled="! Gate::check('update', $team)" --}} />
 
             <x-jet-input-error for="label" class="mt-2" />
@@ -75,7 +75,7 @@
                 <div class="inline-flex flex-row justify-between w-full sm:col-span-4">
                     <x-jet-label class="w-12 mt-4 mr-2" for="description" value="{{ __('Title') }}" />
 
-                    <x-textarea id="title" class="block w-full mt-1" wire:model.defer="state.title" {{--
+                    <x-vanilla-textarea id="title" class="block w-full mt-1" wire:model.defer="state.title" {{--
                         :disabled="! Gate::check('update', $team)" --}} />
 
                     <x-jet-input-error for="title" class="w-full mt-2" />
@@ -109,9 +109,26 @@
                     <x-jet-input-error for="view" class="w-full mt-2" />
                 </div>
 
+                <x-jet-input-error for="view" class="w-full mt-2" />
+
+                <div class="inline-flex flex-row justify-between w-full sm:col-span-4">
+                    <x-jet-label class="w-12 mt-4 mr-2" for="icon" value="{{ __('Icon') }}" />
+
+                    <x-jet-input id="icon" type="text" class="block w-full mt-1"
+                        wire:model.defer="state.icon" {{-- :disabled="! Gate::check('update', $team)" --}} />
+
+                    <x-jet-input-error for="icon" class="mt-2" />
+                </div>
+
+                <div class="inline-flex flex-row justify-between w-full sm:col-span-4">
+
+                    <x-form-help-text class="w-full mt-2">
+                      Need help finding an Icon? go <a class="underline" href="{{ route('blade-icons') }}" target="_blank">here</a>
+                    </x-form-help-text>
+                </div>
             </div>
         </div>
-        <x-jet-input-error for="view" class="w-full mt-2" />
+
     </x-slot>
 
     <x-slot name="footer">

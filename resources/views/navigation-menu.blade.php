@@ -11,24 +11,29 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                <div class="hidden space-x-5 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
-                    </x-jet-nav-link>
+                    </x-nav-link>
 
-                    @foreach (\App\Models\Link::where('view', \App\Models\LinkMenu::NavigationMenu->value )->get() as $link)
+                    @foreach (\App\Models\Link::where('view', \App\Models\LinkMenu::NavigationMenu->value )->get() as
+                    $link)
                     @if(Gate::allows('view', $link))
-                    <x-jet-nav-link href="{{ $link->url }}" target="{{ $link->target->value }}"
-                        title="{{ $link->title }}">
-                        {{ $link->label }}
-                    </x-jet-nav-link>
+
+                    <x-nav-link href="{{ $link->url }}" target="{{ $link->target->value }}" title="{{ $link->title }}">
+                        @isset($link->icon) @svg($link->icon, 'w-4 h-4') @endisset <span class="ml-1">{{ $link->label
+                            }}</span>
+                    </x-nav-link>
                     @endif
 
                     @endforeach
 
-                    <x-jet-nav-link href="#" onclick="Livewire.emit('creatingNewLink', '{{ \App\Models\LinkMenu::NavigationMenu->value }}')">
-                        {{ __('Add Bookmark') }}
-                    </x-jet-nav-link>
+                    <x-nav-link href="#"
+                        onclick="Livewire.emit('creatingNewLink', '{{ \App\Models\LinkMenu::NavigationMenu->value }}')">
+                        <button
+                            class="flex items-center w-full px-2 py-3 text-gray-600 cursor-pointer justify-left hover:bg-gray-100 hover:text-gray-700 focus:outline-none">
+                            @svg('heroicon-o-plus-circle', 'w-4 h-4') <span>{{ __('Add Bookmark') }}</span></button>
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -136,6 +141,67 @@
                                     {{ __('Log Out') }}
                                 </x-jet-dropdown-link>
                             </form>
+                            <div class="border-t border-gray-100"></div>
+
+                            <x-collapsible-folder-solid>
+                                <div class="block pt-2 text-xs text-gray-400">
+
+                                    <x-slot name="icon">
+                                        <span>
+                                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path x-cloak x-show="! openFolder" d="M9 5L16 12L9 19"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" style="display: none;"></path>
+                                                <path x-cloak x-show="openFolder" d="M19 9L12 16L5 9"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round"></path>
+                                            </svg>
+                                        </span>
+                                    </x-slot>
+                                    <x-slot name="header">
+                                        {{ __('Bookmarks') }}
+                                    </x-slot>
+                                </div>
+
+
+                                <x-jet-dropdown-link href="#"
+                                    onclick="Livewire.emit('creatingNewLink', '{{ \App\Models\LinkMenu::NavigationMenu->value }}')">
+                                    <button
+                                        class="flex items-center w-full px-1 text-gray-600 cursor-pointer justify-left hover:bg-gray-100 hover:text-gray-700 focus:outline-none">
+                                        @svg('heroicon-o-plus-circle', 'w-4 h-4') <span>{{ __('Add Bookmark')
+                                            }}</span></button>
+                                </x-jet-dropdown-link>
+
+                                @foreach (\App\Models\Link::all() as $link)
+                                @if(Gate::allows('view', $link))
+
+                                <div class="grid items-center justify-end w-full grid-cols-2 gap-8 pr-2 text-gray-600">
+
+                                    <x-jet-dropdown-link class="grid items-center grid-cols-2" href="{{ $link->url }}"
+                                        target="{{ $link->target->value }}" title="{{ $link->title }}">
+                                        @isset($link->icon) @svg($link->icon, 'w-4 h-4') @endisset <span class="ml-1">{{
+                                            $link->label }}</span>
+                                    </x-jet-dropdown-link>
+
+                                    <div class="flex flex-row items-center justify-end">
+                                        <x-jet-dropdown-link href="#"
+                                            onclick="Livewire.emit('editingLink', '{{ $link->id }}')">
+                                            @svg('heroicon-o-pencil', 'w-4 h-4')
+                                        </x-jet-dropdown-link>
+
+
+                                        <x-jet-dropdown-link href="#"
+                                            onclick="Livewire.emit('deletingLink', '{{ $link->id }}')">
+                                            @svg('heroicon-o-trash', 'w-4 h-4')
+                                        </x-jet-dropdown-link>
+                                    </div>
+
+                                </div>
+                                @endif
+
+                                @endforeach
+                            </x-collapsible-folder-solid>
                         </x-slot>
                     </x-jet-dropdown>
                 </div>
@@ -236,6 +302,67 @@
                 <x-switchable-team :team="$team" component="jet-responsive-nav-link" />
                 @endforeach
                 @endif
+
+                <div class="border-t border-gray-200"></div>
+
+                <x-collapsible-folder-solid>
+
+                    <div class="block py-2 text-xs text-gray-400">
+
+                        <x-slot name="icon">
+                            <span>
+                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path x-cloak x-show="! openFolder" d="M9 5L16 12L9 19" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        style="display: none;"></path>
+                                    <path x-cloak x-show="openFolder" d="M19 9L12 16L5 9" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </span>
+                        </x-slot>
+                        <x-slot name="header">
+                            <!-- Organization Switcher -->
+
+                            {{ __('Bookmarks') }}
+                        </x-slot>
+                    </div>
+
+                    <x-jet-responsive-nav-link class="flex items-center" href="#"
+                        onclick="Livewire.emit('creatingNewLink', '{{ \App\Models\LinkMenu::NavigationMenu->value }}')">
+                        <button
+                            class="flex items-center w-full px-2 py-3 text-gray-600 cursor-pointer justify-left hover:bg-gray-100 hover:text-gray-700 focus:outline-none">
+                            @svg('heroicon-o-plus-circle', 'w-4 h-4') <span>{{ __('Add Bookmark') }}</span></button>
+                    </x-jet-responsive-nav-link>
+
+                    @foreach (\App\Models\Link::all() as $link)
+                    @if(Gate::allows('view', $link))
+
+                    <div class="grid grid-cols-2">
+
+                        <x-jet-responsive-nav-link class="flex items-center" href="{{ $link->url }}"
+                            target="{{ $link->target->value }}" title="{{ $link->title }}">
+                            @isset($link->icon) @svg($link->icon, 'w-4 h-4') @endisset <span class="ml-1">{{
+                                $link->label
+                                }}</span>
+                        </x-jet-responsive-nav-link>
+
+                        <div class="flex flex-row items-center justify-end">
+                            <x-jet-dropdown-link href="#" onclick="Livewire.emit('editingLink', '{{ $link->id }}')">
+                                @svg('heroicon-o-pencil', 'w-4 h-4')
+                            </x-jet-dropdown-link>
+
+
+                            <x-jet-dropdown-link href="#" onclick="Livewire.emit('deletingLink', '{{ $link->id }}')">
+                                @svg('heroicon-o-trash', 'w-4 h-4')
+                            </x-jet-dropdown-link>
+                        </div>
+                    </div>
+                    @endif
+
+                    @endforeach
+
+
+                </x-collapsible-folder-solid>
             </div>
         </div>
     </div>

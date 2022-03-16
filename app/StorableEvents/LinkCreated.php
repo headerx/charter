@@ -17,6 +17,7 @@ class LinkCreated extends ShouldBeStored
         public ?string $title = null,
         public ?string $label = null,
         public ?string $view = null,
+        public ?string $icon = null,
     ) {
     }
 }
