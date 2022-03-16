@@ -191,13 +191,13 @@
 
                                         <div class="flex flex-row items-center justify-end">
                                             <x-jet-dropdown-link href="#"
-                                                onclick="window.livewire.emit('editingLink', '{{ $link->id }}')">
+                                                onclick="window.livewire.emit('editingLink', '{{ $link->uuid }}')">
                                                 @svg('heroicon-o-pencil', 'w-4 h-4')
                                             </x-jet-dropdown-link>
 
 
                                             <x-jet-dropdown-link href="#"
-                                                onclick="window.livewire.emit('deletingLink', '{{ $link->id }}')">
+                                                onclick="window.livewire.emit('deletingLink', '{{ $link->uuid }}')">
                                                 @svg('heroicon-o-trash', 'w-4 h-4')
                                             </x-jet-dropdown-link>
                                         </div>
@@ -351,12 +351,12 @@
                         </x-jet-responsive-nav-link>
 
                         <div class="flex flex-row items-center justify-end">
-                            <x-jet-dropdown-link href="#" onclick="window.livewire.emit('editingLink', '{{ $link->id }}')">
+                            <x-jet-dropdown-link href="#" onclick="window.livewire.emit('editingLink', '{{ $link->uuid }}')">
                                 @svg('heroicon-o-pencil', 'w-4 h-4')
                             </x-jet-dropdown-link>
 
 
-                            <x-jet-dropdown-link href="#" onclick="window.livewire.emit('deletingLink', '{{ $link->id }}')">
+                            <x-jet-dropdown-link href="#" onclick="window.livewire.emit('deletingLink', '{{ $link->uuid }}')">
                                 @svg('heroicon-o-trash', 'w-4 h-4')
                             </x-jet-dropdown-link>
                         </div>

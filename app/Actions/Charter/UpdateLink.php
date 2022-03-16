@@ -3,19 +3,23 @@
 namespace App\Actions\Charter;
 
 use App\Aggregates\LinkAggregate;
+use App\Concerns\CleansInput;
 use App\Contracts\UpdatesLink;
 use App\Models\LinkMenu;
 use App\Models\LinkTarget;
 use App\Models\LinkType;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Enum;
-use Validator;
 
 class UpdateLink implements UpdatesLink
 {
+    use CleansInput;
 
     public function update($user, $link, $input)
     {
         // Gate::forUser($user)->authorize('update', $link);
+
+        $input = $this->cleanInput($input);
 
         Validator::make($input, [
             'role' => ['nullable', 'string', 'max:255'],
@@ -25,7 +29,7 @@ class UpdateLink implements UpdatesLink
             'title' => ['string', 'nullable', 'max:255'],
             'label' => ['string', 'nullable', 'max:255'],
             'view' => [new Enum(LinkMenu::class), 'nullable'],
-            'icon' => ['exists:icons,name', 'nullable'],
+            'icon' => ['exists:icons,name','string', 'nullable', 'max:255', 'min:2'],
             'team_uuid' => ['nullable', 'string','exists:teams,uuid', 'max:255'],
         ])->validateWithBag('updateLink');
 

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Contracts\UpdatesLink;
+use App\Models\Link;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -22,6 +23,21 @@ class UpdateLinkForm extends Component
      */
     public $state = [];
 
+    public $editingLink = false;
+
+    protected $listeners = ['editingLink' => 'showForm'];
+
+
+
+    public function showForm($linkUuid)
+    {
+        $this->link = Link::where('uuid', $linkUuid)->first();
+
+        $this->state = $this->link->withoutRelations()->toArray();
+
+        $this->editingLink = true;
+    }
+
 
     public function updateLink(UpdatesLink $updater)
     {
@@ -32,6 +48,8 @@ class UpdateLinkForm extends Component
         $this->emit('saved');
 
         $this->emit('refresh-navigation-menu');
+
+        $this->editingLink = false;
     }
 
     /**

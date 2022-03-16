@@ -45,6 +45,7 @@
             {{ $slot }}
         </main>
         @livewire('create-link-form')
+        @livewire('update-link-form')
     </div>
 
     @stack('modals')
