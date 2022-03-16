@@ -321,8 +321,6 @@
                             </span>
                         </x-slot>
                         <x-slot name="header">
-                            <!-- Organization Switcher -->
-
                             {{ __('Bookmarks') }}
                         </x-slot>
                     </div>

@@ -17,6 +17,8 @@ class CreateLinkTest extends TestCase
     {
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 
+        $this->withoutExceptionHandling();
+
         Livewire::test(CreateLinkForm::class)
                     ->set(['state' => [
                         'teamUuid' => $user->currentTeam->uuid,
@@ -26,6 +28,7 @@ class CreateLinkTest extends TestCase
                         'url' => 'https://example.com',
                         'title' => 'Example',
                         'label' => 'Example',
+                        'view' => 'navigation-menu',
                         ]])
                     ->call('createLink');
 
@@ -37,6 +40,7 @@ class CreateLinkTest extends TestCase
             'url' => 'https://example.com',
             'title' => 'Example',
             'label' => 'Example',
+            'view' => 'navigation-menu',
         ]);
     }
 

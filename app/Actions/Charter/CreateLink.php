@@ -4,9 +4,11 @@ namespace App\Actions\Charter;
 
 use App\Aggregates\LinkAggregate;
 use App\Contracts\CreatesLink;
+use App\Models\Link;
 use App\Models\LinkMenu;
 use App\Models\LinkTarget;
 use App\Models\LinkType;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Enum;
@@ -23,6 +25,8 @@ class CreateLink implements CreatesLink
      */
     public function create($user, $team, array $input)
     {
+        Gate::forUser($user)->authorize('create', Link::class);
+
         Validator::make($input, [
             'role' => ['required', 'string', 'max:255'],
             'type' => [new Enum(LinkType::class), 'nullable'],
@@ -47,8 +51,8 @@ class CreateLink implements CreatesLink
             url: $input['url'],
             title: $input['title'],
             label: $input['label'],
-            view: $input['view'],
-            icon: $input['icon'],
+            view: $input['view'] ?? null,
+            icon: $input['icon'] ?? null,
         )->persist();
     }
 

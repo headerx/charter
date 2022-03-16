@@ -44,7 +44,7 @@ class LinkPolicy
      */
     public function create(User $user)
     {
-        true;
+       return true;
     }
 
     /**
