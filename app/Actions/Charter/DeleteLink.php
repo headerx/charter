@@ -30,4 +30,8 @@ class DeleteLink implements DeletesLink
             teamUuid: $user->currentTeam->uuid,
         )->persist();
     }
+
+    public function redirectTo(){
+        return route('dashboard');
+    }
 }

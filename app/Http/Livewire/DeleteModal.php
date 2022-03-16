@@ -3,13 +3,18 @@
 namespace App\Http\Livewire;
 
 use Illuminate\Support\Facades\Auth;
+use Laravel\Jetstream\InteractsWithBanner;
+use Laravel\Jetstream\RedirectsActions;
 use Livewire\Component;
 
 class DeleteModal extends Component
 {
+    use InteractsWithBanner;
+    use RedirectsActions;
+
     public $modalHeading = '';
     public $modalMessage = '';
-    public $showModal = false;
+    public $showDeleteModal = false;
     public $model;
     public $deleter;
 
@@ -18,7 +23,7 @@ class DeleteModal extends Component
     public function showDeleteModal($deleter, $modelType, $modelUuid, $modalHeading = 'Delete', $modalMessage = 'Are you sure you want to delete this?')
     {
         $this->deleter = $deleter;
-        $this->showModal = true;
+        $this->showDeleteModal = true;
         $this->model = $modelType::whereUuid($modelUuid)->first();
         $this->modalHeading = $modalHeading;
         $this->modalMessage = $modalMessage;
@@ -26,10 +31,14 @@ class DeleteModal extends Component
 
     public function destroy()
     {
-        app()->make($this->deleter)->delete($this->user, $this->model->uuid);
-        $this->emit('refreshComponent');
-        $this->emit('successAlert', 'Deleted successfully');
+        $this->resetErrorBag();
+        $deleter = app()->make($this->deleter);
+        $deleter->delete($this->user, $this->model->uuid);
         $this->showModal = false;
+        $this->banner('Link created successfully.', 'success');
+        $this->emit('refresh-navigation-menu');
+
+        return $this->redirectPath($deleter);
     }
 
     /**

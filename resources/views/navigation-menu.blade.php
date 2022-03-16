@@ -196,8 +196,8 @@
                                             </x-jet-dropdown-link>
 
 
-                                            <x-jet-dropdown-link href="#"
-                                                onclick="window.livewire.emit('deletingLink', '{{ $link->uuid }}')">
+                                            <x-jet-dropdown-link href="#" x-data="{}"
+                                            x-on:click="window.livewire.emitTo('delete-modal','showDeleteModal', 'App\\\Contracts\\\DeletesLink', 'App\\\Models\\\Link', '{{ $link->uuid }}')">
                                                 @svg('heroicon-o-trash', 'w-4 h-4')
                                             </x-jet-dropdown-link>
                                         </div>
@@ -356,7 +356,7 @@
                             </x-jet-dropdown-link>
 
 
-                            <x-jet-dropdown-link href="#" onclick="window.livewire.emit('deletingLink', '{{ $link->uuid }}')">
+                            <x-jet-dropdown-link href="#" x-data="{}" x-on:click="window.livewire.emitTo('delete-modal','showDeleteModal', 'App\\\Contracts\\\DeletesLink', 'App\\\Models\\\Link', '{{ $link->uuid }}')">
                                 @svg('heroicon-o-trash', 'w-4 h-4')
                             </x-jet-dropdown-link>
                         </div>
