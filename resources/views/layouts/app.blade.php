@@ -46,7 +46,7 @@
         </main>
         @livewire('create-link-form')
         @livewire('update-link-form')
-        @livewire('delete-modal')
+        @livewire('delete-link-form')
     </div>
 
     @stack('modals')

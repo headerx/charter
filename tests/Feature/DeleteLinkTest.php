@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Http\Livewire\DeleteLinkForm;
 use App\Http\Livewire\DeleteModal;
 use App\Models\Link;
 use App\Models\User;
@@ -25,8 +26,8 @@ class DeleteLinkTest extends TestCase
             'url' => 'https://example.com',
         ]);
 
-        Livewire::test(DeleteModal::class)
-            ->call('showDeleteModal', 'App\\Contracts\\DeletesLink', 'App\\Models\\Link', $link->uuid)->call('destroy');
+        Livewire::test(DeleteLinkForm::class)
+            ->call('showDeleteLinkModal', $link->uuid)->call('deleteLink');
 
         $this->assertDatabaseMissing('links', [
             'team_id' => $user->currentTeam->id,

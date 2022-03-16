@@ -152,12 +152,12 @@
                                         <span>
                                             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <path x-cloak x-show="! open" d="M9 5L16 12L9 19"
-                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round" style="display: none;"></path>
-                                                <path x-cloak x-show="open" d="M19 9L12 16L5 9"
-                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
+                                                <path x-cloak x-show="! open" d="M9 5L16 12L9 19" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    style="display: none;"></path>
+                                                <path x-cloak x-show="open" d="M19 9L12 16L5 9" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                </path>
                                             </svg>
                                         </span>
                                         <span>
@@ -167,8 +167,7 @@
                                 </x-slot>
 
                                 <x-slot name="content">
-                                    <x-jet-dropdown-link href="#"
-                                        onclick="window.livewire.emit('creatingNewLink')">
+                                    <x-jet-dropdown-link href="#" onclick="window.livewire.emit('creatingNewLink')">
                                         <button
                                             class="flex items-center w-full px-1 text-gray-600 cursor-pointer justify-left hover:bg-gray-100 hover:text-gray-700 focus:outline-none">
                                             @svg('heroicon-o-plus-circle', 'w-4 h-4') <span>{{ __('Add Bookmark')
@@ -189,6 +188,7 @@
                                                 $link->label }}</span>
                                         </x-jet-dropdown-link>
 
+                                        @if(Gate::allows('update', $link))
                                         <div class="flex flex-row items-center justify-end">
                                             <x-jet-dropdown-link href="#"
                                                 onclick="window.livewire.emit('editingLink', '{{ $link->uuid }}')">
@@ -196,11 +196,12 @@
                                             </x-jet-dropdown-link>
 
 
-                                            <x-jet-dropdown-link href="#" x-data="{}"
-                                            x-on:click="window.livewire.emitTo('delete-modal','showDeleteModal', 'App\\\Contracts\\\DeletesLink', 'App\\\Models\\\Link', '{{ $link->uuid }}')">
+                                            <x-jet-dropdown-link href="#"
+                                                onclick="window.livewire.emit('showDeleteLinkModal', '{{ $link->uuid }}')">
                                                 @svg('heroicon-o-trash', 'w-4 h-4')
                                             </x-jet-dropdown-link>
                                         </div>
+                                        @endif
 
                                     </div>
                                     @endif
@@ -350,16 +351,19 @@
                                 }}</span>
                         </x-jet-responsive-nav-link>
 
+                        @if(Gate::allows('update', $link))
                         <div class="flex flex-row items-center justify-end">
-                            <x-jet-dropdown-link href="#" onclick="window.livewire.emit('editingLink', '{{ $link->uuid }}')">
+                            <x-jet-dropdown-link onclick="window.livewire.emit('editingLink', '{{ $link->uuid }}')">
                                 @svg('heroicon-o-pencil', 'w-4 h-4')
                             </x-jet-dropdown-link>
 
 
-                            <x-jet-dropdown-link href="#" x-data="{}" x-on:click="window.livewire.emitTo('delete-modal','showDeleteModal', 'App\\\Contracts\\\DeletesLink', 'App\\\Models\\\Link', '{{ $link->uuid }}')">
+                            <x-jet-dropdown-link
+                                onclick="window.livewire.emit('showDeleteLinkModal', '{{ $link->uuid }}')">
                                 @svg('heroicon-o-trash', 'w-4 h-4')
                             </x-jet-dropdown-link>
                         </div>
+                        @endif
                     </div>
                     @endif
 
