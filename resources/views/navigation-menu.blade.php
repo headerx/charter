@@ -29,7 +29,7 @@
                     @endforeach
 
                     <x-nav-link href="#"
-                        onclick="Livewire.emit('creatingNewLink', '{{ \App\Models\LinkMenu::NavigationMenu->value }}')">
+                        onclick="window.livewire.emit('creatingNewLink', '{{ \App\Models\LinkMenu::NavigationMenu->value }}')">
                         <button
                             class="flex items-center w-full px-2 py-3 text-gray-600 cursor-pointer justify-left hover:bg-gray-100 hover:text-gray-700 focus:outline-none">
                             @svg('heroicon-o-plus-circle', 'w-4 h-4') <span>{{ __('Add Bookmark') }}</span></button>
@@ -191,13 +191,13 @@
 
                                         <div class="flex flex-row items-center justify-end">
                                             <x-jet-dropdown-link href="#"
-                                                onclick="Livewire.emit('editingLink', '{{ $link->id }}')">
+                                                onclick="window.livewire.emit('editingLink', '{{ $link->id }}')">
                                                 @svg('heroicon-o-pencil', 'w-4 h-4')
                                             </x-jet-dropdown-link>
 
 
                                             <x-jet-dropdown-link href="#"
-                                                onclick="Livewire.emit('deletingLink', '{{ $link->id }}')">
+                                                onclick="window.livewire.emit('deletingLink', '{{ $link->id }}')">
                                                 @svg('heroicon-o-trash', 'w-4 h-4')
                                             </x-jet-dropdown-link>
                                         </div>
@@ -332,7 +332,7 @@
                     </div>
 
                     <x-jet-responsive-nav-link class="flex items-center" href="#"
-                        onclick="Livewire.emit('creatingNewLink', '{{ \App\Models\LinkMenu::NavigationMenu->value }}')">
+                        onclick="window.livewire.emit('creatingNewLink')">
                         <button
                             class="flex items-center w-full px-2 py-3 text-gray-600 cursor-pointer justify-left hover:bg-gray-100 hover:text-gray-700 focus:outline-none">
                             @svg('heroicon-o-plus-circle', 'w-4 h-4') <span>{{ __('Add Bookmark') }}</span></button>
@@ -351,12 +351,12 @@
                         </x-jet-responsive-nav-link>
 
                         <div class="flex flex-row items-center justify-end">
-                            <x-jet-dropdown-link href="#" onclick="Livewire.emit('editingLink', '{{ $link->id }}')">
+                            <x-jet-dropdown-link href="#" onclick="window.livewire.emit('editingLink', '{{ $link->id }}')">
                                 @svg('heroicon-o-pencil', 'w-4 h-4')
                             </x-jet-dropdown-link>
 
 
-                            <x-jet-dropdown-link href="#" onclick="Livewire.emit('deletingLink', '{{ $link->id }}')">
+                            <x-jet-dropdown-link href="#" onclick="window.livewire.emit('deletingLink', '{{ $link->id }}')">
                                 @svg('heroicon-o-trash', 'w-4 h-4')
                             </x-jet-dropdown-link>
                         </div>
