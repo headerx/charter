@@ -168,7 +168,7 @@
 
                                 <x-slot name="content">
                                     <x-jet-dropdown-link href="#"
-                                        onclick="Livewire.emit('creatingNewLink', '{{ \App\Models\LinkMenu::NavigationMenu->value }}')">
+                                        onclick="window.livewire.emit('creatingNewLink')">
                                         <button
                                             class="flex items-center w-full px-1 text-gray-600 cursor-pointer justify-left hover:bg-gray-100 hover:text-gray-700 focus:outline-none">
                                             @svg('heroicon-o-plus-circle', 'w-4 h-4') <span>{{ __('Add Bookmark')

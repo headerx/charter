@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Contracts\CreatesLink;
+use App\Models\LinkMenu;
 use App\Models\LinkTarget;
 use App\Models\LinkType;
 use Illuminate\Support\Facades\Auth;
@@ -35,14 +36,13 @@ class CreateLinkForm extends Component
             'url' => '',
             'title' => '',
             'label' => '',
-            'view' => '',
+            'view' => LinkMenu::NavigationMenu->value,
         ];
     }
 
-    public function showForm($view)
+    public function showForm()
     {
         $this->creatingNewLink = true;
-        $this->state['view'] = $view;
     }
 
     /**
