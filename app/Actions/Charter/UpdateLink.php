@@ -8,6 +8,7 @@ use App\Contracts\UpdatesLink;
 use App\Models\LinkMenu;
 use App\Models\LinkTarget;
 use App\Models\LinkType;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Enum;
 
@@ -17,7 +18,7 @@ class UpdateLink implements UpdatesLink
 
     public function update($user, $link, $input)
     {
-        // Gate::forUser($user)->authorize('update', $link);
+        Gate::forUser($user)->authorize('update', $link);
 
         $input = $this->cleanInput($input);
 
@@ -36,7 +37,6 @@ class UpdateLink implements UpdatesLink
         $linkAggregate = LinkAggregate::retrieve($link->uuid);
 
         $linkAggregate->updateLink(
-            userUuid: $user->uuid ?? null,
             teamUuid: $input['team_uuid'] ?? null,
             role: $input['role'] ?? null,
             type: $input['type'] ?? null,

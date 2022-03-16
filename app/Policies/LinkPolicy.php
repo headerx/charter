@@ -56,7 +56,9 @@ class LinkPolicy
      */
     public function update(User $user, Link $link)
     {
-        //
+        return $user->id == $link->user_id ||
+        $user->ownsTeam($link->team) ||
+        $user->hasTeamRole($link->team, 'admin');
     }
 
     /**
