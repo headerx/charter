@@ -7,13 +7,13 @@ use App\Models\LinkType;
 use App\Models\Team;
 use App\Models\User;
 use App\StorableEvents\LinkCreated;
+use App\StorableEvents\LinkUpdated;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 
 class LinkProjector extends Projector
 {
     public function onLinkCreated(LinkCreated $event)
     {
-
         $teamId = (Team::where('uuid', $event->teamUuid)->first())->id ?? null;
         $userId = (User::where('uuid', $event->userUuid)->first())->id ?? null;
 
@@ -30,5 +30,23 @@ class LinkProjector extends Projector
             'view' => $event->view,
             'icon' => $event->icon,
         ]);
+    }
+
+    public function onLinkUpdated(LinkUpdated $event)
+    {
+        $link = Link::where('uuid', $event->linkUuid)->first();
+
+        $link->forceFill([
+            'team_id' => (Team::where('uuid', $event->teamUuid)->first())->id ?? $link->team_id,
+            'user_id' => (User::where('uuid', $event->userUuid)->first())->id ?? $link->user_id,
+            'type' => $event->type ?? $link->type,
+            'target' => $event->target ?? $link->target,
+            'url' => $event->url ?? $link->url,
+            'title' => $event->title ?? $link->title,
+            'label' => $event->label ?? $link->label,
+            'role' => $event->role ?? $link->role,
+            'view' => $event->view ?? $link->view,
+            'icon' => $event->icon ?? $link->icon,
+        ])->save();
     }
 }

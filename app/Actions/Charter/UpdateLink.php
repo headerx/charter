@@ -2,13 +2,46 @@
 
 namespace App\Actions\Charter;
 
+use App\Aggregates\LinkAggregate;
 use App\Contracts\UpdatesLink;
+use App\Models\LinkMenu;
+use App\Models\LinkTarget;
+use App\Models\LinkType;
+use Illuminate\Validation\Rules\Enum;
+use Validator;
 
 class UpdateLink implements UpdatesLink
 {
 
     public function update($user, $link, $input)
     {
-        $link->update($input);
+        // Gate::forUser($user)->authorize('update', $link);
+
+        Validator::make($input, [
+            'role' => ['nullable', 'string', 'max:255'],
+            'type' => [new Enum(LinkType::class), 'nullable'],
+            'target' => [new Enum(LinkTarget::class), 'nullable'],
+            'url' => ['required', 'string', 'max:255'],
+            'title' => ['string', 'nullable', 'max:255'],
+            'label' => ['string', 'nullable', 'max:255'],
+            'view' => [new Enum(LinkMenu::class), 'nullable'],
+            'icon' => ['exists:icons,name', 'nullable'],
+            'team_uuid' => ['nullable', 'string','exists:teams,uuid', 'max:255'],
+        ])->validateWithBag('updateLink');
+
+        $linkAggregate = LinkAggregate::retrieve($link->uuid);
+
+        $linkAggregate->updateLink(
+            userUuid: $user->uuid ?? null,
+            teamUuid: $input['team_uuid'] ?? null,
+            role: $input['role'] ?? null,
+            type: $input['type'] ?? null,
+            target: $input['target'] ?? null,
+            url: $input['url'] ?? null,
+            title: $input['title'] ?? null,
+            label: $input['label'] ?? null,
+            view: $input['view'] ?? null,
+            icon: $input['icon'] ?? null,
+        )->persist();
     }
 }

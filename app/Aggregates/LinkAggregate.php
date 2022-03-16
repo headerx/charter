@@ -3,6 +3,7 @@
 namespace App\Aggregates;
 
 use App\StorableEvents\LinkCreated;
+use App\StorableEvents\LinkUpdated;
 use Spatie\EventSourcing\AggregateRoots\AggregateRoot;
 
 class LinkAggregate extends AggregateRoot
@@ -20,6 +21,35 @@ class LinkAggregate extends AggregateRoot
         ?string $icon = null,
     ) {
         $this->recordThat(new LinkCreated(
+            $this->uuid(),
+            teamUuid:  $teamUuid,
+            userUuid:  $userUuid,
+            role:  $role,
+            type:  $type,
+            target:  $target,
+            url:  $url,
+            title:  $title,
+            label:  $label,
+            view:  $view,
+            icon:  $icon,
+        ));
+
+        return $this;
+    }
+
+    public function updateLink(
+        ?string $teamUuid = null,
+        ?string $url = null,
+        ?string $role = null,
+        ?string $userUuid = null,
+        ?string $type = null,
+        ?string $target = null,
+        ?string $title = null,
+        ?string $label = null,
+        ?string $view = null,
+        ?string $icon = null,
+    ) {
+        $this->recordThat(new LinkUpdated(
             $this->uuid(),
             teamUuid:  $teamUuid,
             userUuid:  $userUuid,
