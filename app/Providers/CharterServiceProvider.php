@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Actions\Charter\CreateLink;
+use App\Actions\Charter\DeleteLink;
 use App\Actions\Charter\UpdateLink;
 use App\Actions\Charter\UpdateTeamDomain;
 use App\Actions\Charter\UpdateTeamLogo;
@@ -22,5 +23,6 @@ class CharterServiceProvider extends ServiceProvider
         Charter::updateTeamDomainsUsing(UpdateTeamDomain::class);
         Charter::createLinksUsing(CreateLink::class);
         Charter::updateLinksUsing(UpdateLink::class);
+        Charter::deleteLinksUsing(DeleteLink::class);
     }
 }

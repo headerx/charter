@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Contracts\CreatesLink;
+use App\Contracts\DeletesLink;
 use App\Contracts\UpdatesLink;
 use App\Contracts\UpdatesTeamDomains;
 use App\Contracts\UpdatesTeamLogo;
@@ -20,6 +21,17 @@ class Charter
     public static function createLinksUsing(string $callback)
     {
         app()->singleton(CreatesLink::class, $callback);
+    }
+
+    /**
+     * Register a class / callback that should be used to delete a link.
+     *
+     * @param  string  $callback
+     * @return void
+     */
+    public static function deleteLinksUsing(string $callback)
+    {
+        app()->singleton(DeletesLink::class, $callback);
     }
 
     /**

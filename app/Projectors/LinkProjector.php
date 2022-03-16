@@ -7,6 +7,7 @@ use App\Models\LinkType;
 use App\Models\Team;
 use App\Models\User;
 use App\StorableEvents\LinkCreated;
+use App\StorableEvents\LinkDeleted;
 use App\StorableEvents\LinkUpdated;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 
@@ -48,5 +49,11 @@ class LinkProjector extends Projector
             'view' => $event->view ?? $link->view,
             'icon' => $event->icon ?? $link->icon,
         ])->save();
+    }
+
+    public function onLinkDeleted(LinkDeleted $event)
+    {
+        $link = Link::where('uuid', $event->linkUuid)->first();
+        $link->delete();
     }
 }

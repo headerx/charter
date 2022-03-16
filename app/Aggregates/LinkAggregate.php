@@ -3,6 +3,7 @@
 namespace App\Aggregates;
 
 use App\StorableEvents\LinkCreated;
+use App\StorableEvents\LinkDeleted;
 use App\StorableEvents\LinkUpdated;
 use Spatie\EventSourcing\AggregateRoots\AggregateRoot;
 
@@ -61,6 +62,19 @@ class LinkAggregate extends AggregateRoot
             label:  $label,
             view:  $view,
             icon:  $icon,
+        ));
+
+        return $this;
+    }
+
+    public function deleteLink(
+        string $teamUuid,
+        string $userUuid,
+    ) {
+        $this->recordThat(new LinkDeleted(
+            $this->uuid(),
+            teamUuid:  $teamUuid,
+            userUuid:  $userUuid,
         ));
 
         return $this;
