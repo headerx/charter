@@ -93,4 +93,60 @@ class CreateLinkTest extends TestCase
             'label' => 'Example',
         ]);
     }
+
+    public function test_creating_link_requires_authorization()
+    {
+        $user = User::factory()->withPersonalTeam()->create();
+
+        $adminTeamMember = User::factory()->withPersonalTeam()->create();
+
+        $this->actingAs($supervisorTeamMember = User::factory()->withPersonalTeam()->create());
+
+        //assign the supervisor to the user's team
+        $user->currentTeam->users()->attach($supervisorTeamMember, ['role' => 'supervisor']);
+        $user->currentTeam->users()->attach($adminTeamMember, ['role' => 'admin']);
+
+        $supervisorTeamMember->switchTeam($user->currentTeam);
+        $adminTeamMember->switchTeam($user->currentTeam);
+
+        $this->actingAs($supervisorTeamMember);
+
+        $this->createLink();
+
+        $this->assertDatabaseMissing('links', [
+            'target' => '_self',
+            'url' => 'https://example.com',
+            'title' => 'Example',
+            'label' => 'Example',
+        ]);
+
+
+        // try to create a link as a admin
+        $this->actingAs($adminTeamMember);
+
+        $this->createLink();
+
+        $this->assertDatabaseHas('links', [
+            'target' => '_self',
+            'url' => 'https://example.com',
+            'title' => 'Example',
+            'label' => 'Example',
+        ]);
+    }
+
+    protected function createLink()
+    {
+        $component = Livewire::test(CreateLinkForm::class)
+        ->set(['state' => [
+            'role' => 'admin',
+            'type' => 'internal_link',
+            'target' => '_self',
+            'url' => 'https://example.com',
+            'title' => 'Example',
+            'label' => 'Example',
+            ]])
+        ->call('createLink');
+
+        return $component;
+    }
 }
