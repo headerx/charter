@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Contracts\CreatesLink;
+use App\Contracts\UpdatesLink;
 use App\Contracts\UpdatesTeamDomains;
 use App\Contracts\UpdatesTeamLogo;
 use App\Models\Team;
@@ -30,6 +31,17 @@ class Charter
     public static function updateTeamLogosUsing(string $callback)
     {
         app()->singleton(UpdatesTeamLogo::class, $callback);
+    }
+
+    /**
+     * Register a class / callback that should be used to update links.
+     *
+     * @param  string  $callback
+     * @return void
+     */
+    public static function updateLinksUsing(string $callback)
+    {
+        app()->singleton(UpdatesLink::class, $callback);
     }
 
     /**

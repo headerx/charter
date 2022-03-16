@@ -2,9 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\LinkMenu;
+use App\Models\LinkTarget;
 use App\Models\LinkType;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use LinkTarget;
+
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Link>
@@ -24,6 +26,11 @@ class LinkFactory extends Factory
             'title' => $this->faker->sentence,
             'label' => $this->faker->word,
             'target' => LinkTarget::Self->value,
+            'view' => LinkMenu::NavigationMenu->value,
+            'icon' => null,
+            'team_id' => function () {
+                return TeamFactory::new()->create()->id;
+            },
         ];
     }
 

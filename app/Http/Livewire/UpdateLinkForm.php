@@ -27,7 +27,7 @@ class UpdateLinkForm extends Component
     {
         $this->resetErrorBag();
 
-        $updater->update($this->user, $this->state);
+        $updater->update($this->user, $this->link, $this->state);
 
         $this->emit('saved');
 
