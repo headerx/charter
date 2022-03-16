@@ -44,7 +44,7 @@ class LinkPolicy
      */
     public function create(User $user)
     {
-       return $user->ownsTeam($user->currentTeam) ||
+        return $user->ownsTeam($user->currentTeam) ||
          $user->hasTeamRole($user->currentTeam, 'admin');
     }
 

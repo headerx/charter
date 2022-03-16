@@ -27,8 +27,6 @@ class UpdateLinkForm extends Component
 
     protected $listeners = ['editingLink' => 'showForm'];
 
-
-
     public function showForm($linkUuid)
     {
         $this->link = Link::where('uuid', $linkUuid)->first();
@@ -37,7 +35,6 @@ class UpdateLinkForm extends Component
 
         $this->editingLink = true;
     }
-
 
     public function updateLink(UpdatesLink $updater)
     {

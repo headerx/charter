@@ -15,6 +15,7 @@ enum LinkType: string
         switch ($this) {
             case LinkType::Link:
                 return 'Link';
+                // no break
             case LinkType::InternalLink:
                 return 'Internal Link';
             case LinkType::ExternalLink:
@@ -26,4 +27,3 @@ enum LinkType: string
         }
     }
 }
-

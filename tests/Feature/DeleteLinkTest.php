@@ -6,7 +6,6 @@ use App\Http\Livewire\DeleteModal;
 use App\Models\Link;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -18,7 +17,7 @@ class DeleteLinkTest extends TestCase
     {
         // $this->withoutExceptionHandling();
 
-       $this->actingAs($user = User::factory()->withPersonalTeam()->create());
+        $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 
         $link = Link::factory()->create([
             'team_id' => $user->currentTeam->id,

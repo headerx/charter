@@ -60,6 +60,7 @@ class CreateLink implements CreatesLink
     {
         session()->flash('flash.banner', 'Link created successfully.');
         session()->flash('flash.bannerStyle', 'success');
+
         return route('dashboard');
     }
 }
