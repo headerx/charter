@@ -117,7 +117,7 @@
 
                         <x-slot name="content">
                             <!-- Account Management -->
-                            <div class="block px-4 py-2 text-xs text-gray-400">
+                            <div class="block px-2 py-2 text-xs text-gray-400">
                                 {{ __('Manage Account') }}
                             </div>
 
@@ -143,65 +143,71 @@
                             </form>
                             <div class="border-t border-gray-100"></div>
 
-                            <x-collapsible-folder-solid>
-                                <div class="block pt-2 text-xs text-gray-400">
 
-                                    <x-slot name="icon">
+                            <x-collapsible-div-vertical>
+
+
+                                <x-slot name="trigger">
+                                    <div class="inline-flex flex-row px-2 py-1 text-xs text-gray-400">
                                         <span>
                                             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <path x-cloak x-show="! openFolder" d="M9 5L16 12L9 19"
+                                                <path x-cloak x-show="! open" d="M9 5L16 12L9 19"
                                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                     stroke-linejoin="round" style="display: none;"></path>
-                                                <path x-cloak x-show="openFolder" d="M19 9L12 16L5 9"
+                                                <path x-cloak x-show="open" d="M19 9L12 16L5 9"
                                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                     stroke-linejoin="round"></path>
                                             </svg>
                                         </span>
-                                    </x-slot>
-                                    <x-slot name="header">
-                                        {{ __('Bookmarks') }}
-                                    </x-slot>
-                                </div>
+                                        <span>
+                                            {{ __('Bookmarks') }}
+                                        </span>
+                                    </div>
+                                </x-slot>
 
-
-                                <x-jet-dropdown-link href="#"
-                                    onclick="Livewire.emit('creatingNewLink', '{{ \App\Models\LinkMenu::NavigationMenu->value }}')">
-                                    <button
-                                        class="flex items-center w-full px-1 text-gray-600 cursor-pointer justify-left hover:bg-gray-100 hover:text-gray-700 focus:outline-none">
-                                        @svg('heroicon-o-plus-circle', 'w-4 h-4') <span>{{ __('Add Bookmark')
-                                            }}</span></button>
-                                </x-jet-dropdown-link>
-
-                                @foreach (\App\Models\Link::all() as $link)
-                                @if(Gate::allows('view', $link))
-
-                                <div class="grid items-center justify-end w-full grid-cols-2 gap-8 pr-2 text-gray-600">
-
-                                    <x-jet-dropdown-link class="grid items-center grid-cols-2" href="{{ $link->url }}"
-                                        target="{{ $link->target->value }}" title="{{ $link->title }}">
-                                        @isset($link->icon) @svg($link->icon, 'w-4 h-4') @endisset <span class="ml-1">{{
-                                            $link->label }}</span>
+                                <x-slot name="content">
+                                    <x-jet-dropdown-link href="#"
+                                        onclick="Livewire.emit('creatingNewLink', '{{ \App\Models\LinkMenu::NavigationMenu->value }}')">
+                                        <button
+                                            class="flex items-center w-full px-1 text-gray-600 cursor-pointer justify-left hover:bg-gray-100 hover:text-gray-700 focus:outline-none">
+                                            @svg('heroicon-o-plus-circle', 'w-4 h-4') <span>{{ __('Add Bookmark')
+                                                }}</span></button>
                                     </x-jet-dropdown-link>
 
-                                    <div class="flex flex-row items-center justify-end">
-                                        <x-jet-dropdown-link href="#"
-                                            onclick="Livewire.emit('editingLink', '{{ $link->id }}')">
-                                            @svg('heroicon-o-pencil', 'w-4 h-4')
+                                    @foreach (\App\Models\Link::all() as $link)
+                                    @if(Gate::allows('view', $link))
+
+                                    <div
+                                        class="grid items-center justify-end w-full grid-cols-2 gap-8 pr-2 text-gray-600">
+
+                                        <x-jet-dropdown-link class="grid items-center grid-cols-2"
+                                            href="{{ $link->url }}" target="{{ $link->target->value }}"
+                                            title="{{ $link->title }}">
+                                            @isset($link->icon) @svg($link->icon, 'w-4 h-4') @endisset <span
+                                                class="ml-1">{{
+                                                $link->label }}</span>
                                         </x-jet-dropdown-link>
 
+                                        <div class="flex flex-row items-center justify-end">
+                                            <x-jet-dropdown-link href="#"
+                                                onclick="Livewire.emit('editingLink', '{{ $link->id }}')">
+                                                @svg('heroicon-o-pencil', 'w-4 h-4')
+                                            </x-jet-dropdown-link>
 
-                                        <x-jet-dropdown-link href="#"
-                                            onclick="Livewire.emit('deletingLink', '{{ $link->id }}')">
-                                            @svg('heroicon-o-trash', 'w-4 h-4')
-                                        </x-jet-dropdown-link>
+
+                                            <x-jet-dropdown-link href="#"
+                                                onclick="Livewire.emit('deletingLink', '{{ $link->id }}')">
+                                                @svg('heroicon-o-trash', 'w-4 h-4')
+                                            </x-jet-dropdown-link>
+                                        </div>
+
                                     </div>
+                                    @endif
 
-                                </div>
-                                @endif
-
-                                @endforeach
-                            </x-collapsible-folder-solid>
+                                    @endforeach
+                                </x-slot>
+                                </x-collapsible-folder-solid>
                         </x-slot>
                     </x-jet-dropdown>
                 </div>
