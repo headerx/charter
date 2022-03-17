@@ -15,7 +15,6 @@
         "imanghafoori/laravel-masterpass": "^2.0",
         "laravel/framework": "^9.2",
         "laravel/jetstream": "^2.6",
-        "laravel/octane": "^1.2",
         "laravel/sanctum": "^2.14.1",
         "laravel/telescope": "^4.7",
         "laravel/tinker": "^2.7",
