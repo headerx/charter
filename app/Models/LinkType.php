@@ -16,6 +16,7 @@ enum LinkType: string
             case LinkType::Link:
                 return 'Link';
             
+            
             // no break
             case LinkType::InternalLink:
                 return 'Internal Link';

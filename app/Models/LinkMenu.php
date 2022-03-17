@@ -13,6 +13,7 @@ enum LinkMenu: string
             case LinkMenu::NavigationMenu:
                 return 'Navigation Menu';
             
+            
             // no break
             case LinkMenu::UserDropdown:
                 return 'Avatar Dropdown';
