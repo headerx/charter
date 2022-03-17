@@ -54,7 +54,6 @@ class MembershipPolicy
      */
     public function update(User $user, Membership $membership)
     {
-
         $team = Team::find($membership->team_id);
         $member = User::find($membership->user_id);
 

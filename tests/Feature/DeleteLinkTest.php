@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Http\Livewire\DeleteLinkForm;
-use App\Http\Livewire\DeleteModal;
 use App\Models\Link;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;

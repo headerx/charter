@@ -11,7 +11,6 @@ use App\Models\Membership;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Laravel\Jetstream\Jetstream;
 
 class Charter
 {

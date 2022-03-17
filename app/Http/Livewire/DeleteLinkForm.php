@@ -10,7 +10,6 @@ use Livewire\Component;
 
 class DeleteLinkForm extends Component
 {
-
     use RedirectsActions;
 
     /**
@@ -29,7 +28,6 @@ class DeleteLinkForm extends Component
 
     protected $listeners = [ 'showDeleteLinkModal'];
 
-
     public function showDeleteLinkModal($linkUuid)
     {
         $this->linkUuid = (Link::where('uuid', $linkUuid)->firstOrFail())->uuid;
@@ -38,11 +36,11 @@ class DeleteLinkForm extends Component
 
     public function deleteLink(DeletesLink $deleter)
     {
-
         $deleter->delete($this->user, $this->linkUuid);
 
         session()->flash('flash.banner', 'Link deleted successfully.');
         session()->flash('flash.bannerStyle', 'success');
+
         return $this->redirectPath($deleter);
     }
 
