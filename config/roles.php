@@ -16,8 +16,6 @@ return [
     'supervisor' => [
         'name' => 'Supervisor',
         'permissions' => [
-            'teams:read' => 'Can read teams',
-            'teams:update' => 'Can update teams',
             'records:read' => 'Can read records',
             'records:create' => 'Can create records',
             'records:update' => 'Can update records',
