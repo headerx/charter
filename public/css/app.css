@@ -2355,6 +2355,10 @@ select {
     height: 5rem;
   }
 
+  .sm\:min-h-screen {
+    min-height: 100vh;
+  }
+
   .sm\:w-10 {
     width: 2.5rem;
   }

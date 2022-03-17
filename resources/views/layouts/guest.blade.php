@@ -20,7 +20,7 @@
 
         @include('guest-navigation-menu')
 
-        <div class="font-sans antialiased relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0"">
+        <div class="relative flex justify-center min-h-screen py-4 font-sans antialiased bg-gray-100 items-top dark:bg-gray-900 sm:items-center sm:pt-0"">
             {{ $slot }}
         </div>
 
