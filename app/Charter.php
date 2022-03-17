@@ -7,8 +7,11 @@ use App\Contracts\DeletesLink;
 use App\Contracts\UpdatesLink;
 use App\Contracts\UpdatesTeamDomains;
 use App\Contracts\UpdatesTeamLogo;
+use App\Models\Membership;
 use App\Models\Team;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Laravel\Jetstream\Jetstream;
 
 class Charter
 {
@@ -100,5 +103,14 @@ class Charter
             session()->put('current_team_uuid', $team->uuid);
             session()->put('team', $team);
         }
+    }
+
+    public static function membershipInstance(Team $team, User $user) : Membership
+    {
+        return new Membership([
+            'team_id' => $team->id,
+            'user_id' => $user->id,
+            'role' => 'owner',
+        ]);
     }
 }

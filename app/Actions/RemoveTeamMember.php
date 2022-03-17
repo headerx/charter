@@ -47,6 +47,10 @@ class RemoveTeamMember implements RemovesTeamMembers
             $user->id !== $teamMember->id) {
             throw new AuthorizationException;
         }
+
+        if(! Gate::forUser($user)->check('delete', \App\Charter::membershipInstance($team, $teamMember))) {
+            throw new AuthorizationException;
+        }
     }
 
     /**

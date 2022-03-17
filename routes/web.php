@@ -23,3 +23,7 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified', 'charter.user'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::get('memberships/{membership}', function (\App\Models\Membership $membership) {
+    return dd($membership);
+});

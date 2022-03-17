@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Link;
+use App\Models\Membership;
 use App\Models\Team;
 use App\Policies\TeamPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -17,6 +18,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         Team::class => TeamPolicy::class,
         Link::class => \App\Policies\LinkPolicy::class,
+        Membership::class => \App\Policies\MembershipPolicy::class,
     ];
 
     /**

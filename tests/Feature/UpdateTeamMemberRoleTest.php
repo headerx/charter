@@ -32,13 +32,13 @@ class UpdateTeamMemberRoleTest extends TestCase
         ));
     }
 
-    public function test_only_team_owner_can_update_team_member_roles()
+    public function test_only_team_owner_or_admin_can_update_team_member_roles()
     {
         $user = User::factory()->withPersonalTeam()->create();
 
         $user->currentTeam->users()->attach(
             $otherUser = User::factory()->create(),
-            ['role' => 'admin']
+            ['role' => 'supervisor']
         );
 
         $this->actingAs($otherUser);
@@ -51,7 +51,7 @@ class UpdateTeamMemberRoleTest extends TestCase
 
         $this->assertTrue($otherUser->fresh()->hasTeamRole(
             $user->currentTeam->fresh(),
-            'admin'
+            'supervisor'
         ));
     }
 }
