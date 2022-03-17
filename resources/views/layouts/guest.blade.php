@@ -19,10 +19,10 @@
     <body class="bg-gray-100">
 
         @include('guest-navigation-menu')
-        
-        <div class="font-sans antialiased text-gray-900 bg-gray-100">
+
+        <div class="font-sans antialiased relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0"">
             {{ $slot }}
         </div>
-        
+
     </body>
 </html>
