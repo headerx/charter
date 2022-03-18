@@ -42,7 +42,7 @@ class CreateLinkForm extends Component
 
     public function showForm($icon = null)
     {
-        if($icon){
+        if ($icon) {
             $this->state['icon'] = $icon;
         }
         $this->creatingNewLink = true;

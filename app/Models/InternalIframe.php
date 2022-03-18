@@ -14,8 +14,8 @@ class InternalIframe extends Link
     public function url() : Attribute
     {
         return new Attribute(
-            get: fn($value, $attributes) => (new InternalIframePath($value))->iframePath,
-            set: fn($value, $attributes) => $value,
+            get: fn ($value, $attributes) => (new InternalIframePath($value))->iframePath,
+            set: fn ($value, $attributes) => $value,
         );
     }
 }

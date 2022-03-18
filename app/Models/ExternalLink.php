@@ -15,8 +15,8 @@ class ExternalLink extends Link
     public function url() : Attribute
     {
         return new Attribute(
-            get: fn($value, $attributes) => $this->getCleanUrl($value),
-            set: fn($value, $attributes) => $this->getCleanUrl($value),
+            get: fn ($value, $attributes) => $this->getCleanUrl($value),
+            set: fn ($value, $attributes) => $this->getCleanUrl($value),
         );
     }
 }

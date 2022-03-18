@@ -48,9 +48,8 @@ class Link extends Model
     public function label() : Attribute
     {
         return new Attribute(
-            get: fn($value, $attributes) => $value || $attributes['icon'] ? $value : $this->url,
-            set: fn($value, $attributes) => $value,
+            get: fn ($value, $attributes) => $value || $attributes['icon'] ? $value : $this->url,
+            set: fn ($value, $attributes) => $value,
         );
-
     }
 }
