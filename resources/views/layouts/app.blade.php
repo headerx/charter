@@ -44,9 +44,11 @@
         <main>
             {{ $slot }}
         </main>
+        @if(Gate::allows('create', \App\Models\Link::class))
         @livewire('create-link-form')
         @livewire('update-link-form')
         @livewire('delete-link-form')
+        @endif
     </div>
 
     @stack('modals')

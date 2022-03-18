@@ -40,14 +40,14 @@ class LinkProjector extends Projector
         $link->forceFill([
             'team_id' => (Team::where('uuid', $event->teamUuid)->first())->id ?? $link->team_id,
             'user_id' => (User::where('uuid', $event->userUuid)->first())->id ?? $link->user_id,
-            'type' => $event->type ?? $link->type,
-            'target' => $event->target ?? $link->target,
-            'url' => $event->url ?? $link->url,
-            'title' => $event->title ?? $link->title,
-            'label' => $event->label ?? $link->label,
-            'role' => $event->role ?? $link->role,
-            'view' => $event->view ?? $link->view,
-            'icon' => $event->icon ?? $link->icon,
+            'type' => $event->type,
+            'target' => $event->target,
+            'url' => $event->url,
+            'title' => $event->title,
+            'label' => $event->label,
+            'role' => $event->role,
+            'view' => $event->view,
+            'icon' => $event->icon,
         ])->save();
     }
 

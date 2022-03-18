@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\AbsolutePath;
+use App\LocalUrl;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -14,7 +16,8 @@ class InternalLink extends Link
     {
         return new Attribute(
 
-            get: fn($value, $attributes) => '/'.$attributes['url'],
+            get: fn($value, $attributes) => (new AbsolutePath($value))->absolutePath,
+            set: fn($value, $attributes) => $value,
         );
     }
 }

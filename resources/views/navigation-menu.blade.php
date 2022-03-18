@@ -28,12 +28,13 @@
 
                     @endforeach
 
-                    <x-nav-link href="#"
-                        onclick="window.livewire.emit('creatingNewLink', '{{ \App\Models\LinkMenu::NavigationMenu->value }}')">
+                    @if(Gate::allows('create', \App\Models\Link::class))
+                    <x-nav-link href="#Add Bookmark" onclick="window.livewire.emit('creatingNewLink')">
                         <button
                             class="flex items-center w-full px-2 py-3 text-gray-600 cursor-pointer justify-left hover:bg-gray-100 hover:text-gray-700 focus:outline-none">
                             @svg('heroicon-o-plus-circle', 'w-4 h-4') <span>{{ __('Add Bookmark') }}</span></button>
                     </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -167,20 +168,22 @@
                                 </x-slot>
 
                                 <x-slot name="content">
+                                    @if(Gate::allows('create', \App\Models\Link::class))
                                     <x-jet-dropdown-link href="#" onclick="window.livewire.emit('creatingNewLink')">
                                         <button
                                             class="flex items-center w-full px-1 text-gray-600 cursor-pointer justify-left hover:bg-gray-100 hover:text-gray-700 focus:outline-none">
                                             @svg('heroicon-o-plus-circle', 'w-4 h-4') <span>{{ __('Add Bookmark')
                                                 }}</span></button>
                                     </x-jet-dropdown-link>
+                                    @endif
 
                                     @foreach (\App\Models\Link::all() as $link)
                                     @if(Gate::allows('view', $link))
 
-                                    <div
-                                        class="grid items-center justify-end w-full grid-cols-2 gap-8 pr-2 text-gray-600">
+                                    <div class="grid items-center justify-end w-full grid-cols-2 pr-2 text-gray-600">
 
-                                        <x-jet-dropdown-link class="grid items-center grid-cols-2"
+                                        <x-jet-dropdown-link
+                                            class="inline-flex flex-row items-center justify-start w-full overflow-hidden"
                                             href="{{ $link->url }}" target="{{ $link->target->value }}"
                                             title="{{ $link->title }}">
                                             @isset($link->icon) @svg($link->icon, 'w-4 h-4') @endisset <span
@@ -332,12 +335,14 @@
                         </x-slot>
                     </div>
 
+                    @if(Gate::allows('create', \App\Models\Link::class))
                     <x-jet-responsive-nav-link class="flex items-center" href="#"
                         onclick="window.livewire.emit('creatingNewLink')">
                         <button
                             class="flex items-center w-full px-2 py-3 text-gray-600 cursor-pointer justify-left hover:bg-gray-100 hover:text-gray-700 focus:outline-none">
                             @svg('heroicon-o-plus-circle', 'w-4 h-4') <span>{{ __('Add Bookmark') }}</span></button>
                     </x-jet-responsive-nav-link>
+                    @endif
 
                     @foreach (\App\Models\Link::all() as $link)
                     @if(Gate::allows('view', $link))

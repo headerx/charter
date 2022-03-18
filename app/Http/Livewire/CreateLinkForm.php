@@ -31,7 +31,7 @@ class CreateLinkForm extends Component
     {
         $this->state = [
             'role' => array_keys(config('roles'))[0],
-            'type' => LinkType::InternalLink->value,
+            'type' => LinkType::ExternalLink->value,
             'target' => LinkTarget::Self->value,
             'url' => '',
             'title' => '',
@@ -40,8 +40,11 @@ class CreateLinkForm extends Component
         ];
     }
 
-    public function showForm()
+    public function showForm($icon = null)
     {
+        if($icon){
+            $this->state['icon'] = $icon;
+        }
         $this->creatingNewLink = true;
     }
 

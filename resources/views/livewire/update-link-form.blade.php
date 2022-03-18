@@ -123,7 +123,7 @@
                 <div class="inline-flex flex-row justify-between w-full sm:col-span-4">
 
                     <x-form-help-text class="w-full mt-2">
-                      Need help finding an Icon? go <a class="underline" href="{{ route('blade-icons') }}" target="_blank">here</a>
+                      Need help finding an Icon? go <a class="underline" href="{{ route('internal-iframe', ['path' => route('blade-icons')]) }}" target="_blank">here</a>
                     </x-form-help-text>
                 </div>
             </div>

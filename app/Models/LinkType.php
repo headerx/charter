@@ -15,19 +15,14 @@ enum LinkType: string
         switch ($this) {
             case LinkType::Link:
                 return 'Link';
-            
-            
-            
-            
-            // no break
             case LinkType::InternalLink:
-                return 'Internal Link';
+                return 'Local Path (/dashboard)';
             case LinkType::ExternalLink:
-                return 'External Link';
+                return 'URL (http://example.com)';
             case LinkType::InternalIframe:
-                return 'Internal Iframe';
+                return 'Local Path in an Iframe';
             case LinkType::ExternalIframe:
-                return 'External Iframe';
+                return 'Full URL in an Iframe';
         }
     }
 }

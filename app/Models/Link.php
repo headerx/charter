@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Dyrynda\Database\Support\BindsOnUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -42,5 +43,14 @@ class Link extends Model
     public function owner()
     {
         return $this->user();
+    }
+
+    public function label() : Attribute
+    {
+        return new Attribute(
+            get: fn($value, $attributes) => $value || $attributes['icon'] ? $value : $this->url,
+            set: fn($value, $attributes) => $value,
+        );
+
     }
 }
