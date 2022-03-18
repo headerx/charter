@@ -21,6 +21,7 @@
 </head>
 
 <body class="font-sans antialiased">
+    <x-impersonating-banner />
     <x-jet-banner />
 
 

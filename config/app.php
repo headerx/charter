@@ -180,6 +180,7 @@ return [
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
         App\Providers\CharterServiceProvider::class,
+        Lab404\Impersonate\ImpersonateServiceProvider::class,
 
     ],
 

@@ -181,6 +181,10 @@
                                 wire:click="confirmTeamMemberRemoval('{{ $user->id }}')">
                                 {{ __('Remove') }}
                             </button>
+
+                            <button class="ml-6 text-sm text-red-500 cursor-pointer">
+                                <a href="{{ route('impersonate', $user->id) }}">{{ __('Impersonate') }}</a>
+                            </button>
                             @endif
                         </div>
                     </div>

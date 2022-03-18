@@ -7,6 +7,7 @@ use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Lab404\Impersonate\Models\Impersonate;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
@@ -22,6 +23,7 @@ class User extends Authenticatable
     use TwoFactorAuthenticatable;
     use BindsOnUuid;
     use GeneratesUuid;
+    use Impersonate;
 
     /**
      * The attributes that are mass assignable.

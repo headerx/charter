@@ -14,16 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::impersonate();
+
 Route::get('/docs/{file?}', [DocsController::class, 'index'])->name('docs.index');
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified', 'charter.user'])->get('/dashboard', function () {
+Route::middleware(['auth:web', 'charter.user'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
 Route::get('memberships/{membership}', function (\App\Models\Membership $membership) {
-    return dd($membership);
+    return $membership->toJson();
 });
