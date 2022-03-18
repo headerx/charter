@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DocsController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,10 @@ Route::get('/', function () {
 Route::middleware(['auth:web', 'charter.user'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::middleware(['auth:web', 'charter.user'])->get('/id', function (Request $request) {
+    dd(auth());
+})->name('id');
 
 Route::get('memberships/{membership}', function (\App\Models\Membership $membership) {
     return $membership->toJson();
