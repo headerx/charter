@@ -4,10 +4,10 @@
     <x-accordian-dropdown value="navigation-menu">
 
         <x-sidebar-link href="#">
-
+            <x-icon-label icon="fas fa-home" label="Home" />
         </x-sidebar-link>
     </x-accordian-dropdown>
     </nav>
     </aside>
-    @json($state)
+    @json($state ?? [])
 </div>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CurrentTeamController as ControllersCurrentTeamController;
 use App\Http\Controllers\TeamController as ControllersTeamController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Http\Controllers\Livewire\ApiTokenController;
 use Laravel\Jetstream\Http\Controllers\Livewire\PrivacyPolicyController;
@@ -35,7 +36,7 @@ Route::group(['middleware' => config('jetstream.middleware', ['web'])], function
         if (Jetstream::hasTeamFeatures()) {
             Route::get('/teams/create', [TeamController::class, 'create'])->name('teams.create');
             Route::get('/teams/{team}', [ControllersTeamController::class, 'show'])->name('teams.show');
-            Route::put('/current-team', [ControllersCurrentTeamController::class, 'update'])->name('current-team.update');
+            Route::put('/current-team', [ControllersCurrentTeamController::class, 'update'])->name('current-team.update')->can('updateTeam', User::class);
 
             Route::get('/team-invitations/{invitation:uuid}', [TeamInvitationController::class, 'accept'])
                         ->middleware(['signed'])
