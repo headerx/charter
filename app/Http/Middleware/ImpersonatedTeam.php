@@ -17,17 +17,17 @@ class ImpersonatedTeam
      */
     public function handle(Request $request, Closure $next)
     {
-        if($request->user() && $request->user()->isImpersonated()){
+        if ($request->user() && $request->user()->isImpersonated()) {
             $impersonator = app(ImpersonateManager::class)->getImpersonator();
             $user = request()->user();
             $request->session()->put('previous_team_uuid', $user->currentTeam->uuid);
             $request->session()->put('previous_team_name', $user->currentTeam->name);
 
-            if(! $user->switchTeam($impersonator->currentTeam)){
+            if (! $user->switchTeam($impersonator->currentTeam)) {
                 abort(403);
             }
-
         }
+
         return $next($request);
     }
 }

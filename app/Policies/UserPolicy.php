@@ -64,7 +64,7 @@ class UserPolicy
      */
     public function updateTeam(User $user)
     {
-        return !$user->isImpersonated();
+        return ! $user->isImpersonated();
     }
 
     /**
