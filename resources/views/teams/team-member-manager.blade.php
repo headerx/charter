@@ -108,7 +108,7 @@
                             @if (Gate::check('removeTeamMember', $team))
                             <!-- Cancel Organization Invitation -->
                             <button class="ml-6 text-sm text-red-500 cursor-pointer focus:outline-none"
-                                wire:click="cancelTeamInvitation({{ $invitation->id }})">
+                                wire:click="cancelTeamInvitation('{{ $invitation->uuid }}')">
                                 {{ __('Cancel') }}
                             </button>
                             @endif
@@ -184,7 +184,7 @@
                             Gate::check('delete', \App\Charter::membershipInstance($team, $user))
                             )
                             <button class="ml-6 text-sm text-red-500 cursor-pointer"
-                                wire:click="confirmTeamMemberRemoval('{{ $user->id }}')">
+                                wire:click="confirmTeamMemberRemoval('{{ $user->uuid }}')">
                                 {{ __('Remove') }}
                             </button>
 

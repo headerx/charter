@@ -9,8 +9,12 @@ use App\Actions\DeleteUser as ActionsDeleteUser;
 use App\Actions\InviteTeamMember as ActionsInviteTeamMember;
 use App\Actions\RemoveTeamMember as ActionsRemoveTeamMember;
 use App\Actions\UpdateTeamName as ActionsUpdateTeamName;
+use App\Http\Livewire\TeamMemberManager;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\Compilers\BladeCompiler;
+use Laravel\Jetstream\Features;
 use Laravel\Jetstream\Jetstream;
+use Livewire\Livewire;
 
 class JetstreamServiceProvider extends ServiceProvider
 {
@@ -22,6 +26,15 @@ class JetstreamServiceProvider extends ServiceProvider
     public function register()
     {
         Jetstream::ignoreRoutes();
+
+        $this->app->afterResolving(BladeCompiler::class, function () {
+            if (config('jetstream.stack') === 'livewire' && class_exists(Livewire::class)) {
+
+                if (Features::hasTeamFeatures()) {
+                    Livewire::component('teams.team-member-manager', TeamMemberManager::class);
+                }
+            }
+        });
     }
 
     /**
