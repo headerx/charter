@@ -1,6 +1,6 @@
 <div x-data="{ open: false }">
     <button @click="open = !open" wire:click="$set('state.label', document.getElementById('{{$value}}').innerText)"
-        class="flex items-center w-full px-2 py-3 text-gray-600 cursor-pointer @if(isset($this->state['label']) && $this->state['label'] == $value)  bg-orange-600 @endif justify-left hover:bg-gray-100 hover:text-gray-700 focus:outline-none">
+        class="flex items-center w-full px-2 py-3 text-gray-600 cursor-pointer @if(isset($this->state['label']) && $this->state['label'] == $value)   @endif justify-left hover:bg-gray-100 hover:text-gray-700 focus:outline-none">
         <span>
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                 <path x-show="!open" d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />

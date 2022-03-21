@@ -15,7 +15,9 @@ enum LinkType: string
         switch ($this) {
             case LinkType::Link:
                 return 'Link';
-                // no break
+            
+            
+            // no break
             case LinkType::InternalLink:
                 return 'Local Path (/dashboard)';
             case LinkType::ExternalLink:

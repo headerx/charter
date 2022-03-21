@@ -188,8 +188,8 @@
                                 {{ __('Remove') }}
                             </button>
 
-                            <button class="ml-6 text-sm text-red-500 cursor-pointer">
-                                <a href="{{ route('impersonate', $user->id) }}">{{ __('Impersonate') }}</a>
+                            <button class="ml-6 text-sm text-indigo-500 cursor-pointer">
+                                <a href="{{ route('impersonate', $user->uuid) }}">{{ __('Manage') }} / {{ _('Assist') }}</a>
                             </button>
                             @endif
                         </div>

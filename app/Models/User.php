@@ -64,4 +64,19 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function getAuthIdentifier()
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * Get the name of the unique identifier for the user.
+     *
+     * @return string
+     */
+    public function getAuthIdentifierName()
+    {
+        return $this->uuidColumn();
+    }
 }
