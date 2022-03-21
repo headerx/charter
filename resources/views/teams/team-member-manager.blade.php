@@ -146,7 +146,13 @@
                             <div class="ml-4">{{ $user->name }}</div>
                         </div>
 
-                        <div class="flex items-center">
+                        <div class="grid grid-rows-6 sm:flex sm:items-center">
+
+
+                            <a id="{{ $user->email }}" href="#{{ $user->email  }}" class="text-sm text-gray-400 underline">
+                                {{ $user->email }}
+                            </a>
+
                             <!-- Manage Organization Member Role -->
                             @if (
                             Gate::check('addTeamMember', $team) &&
