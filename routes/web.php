@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DocsController;
+use App\Http\Controllers\ImpersonateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::impersonate();
+Route::get('/impersonate/take/{id}/{guardName?}',[ImpersonateController::class, 'take'])->name('impersonate');
+Route::get('/impersonate/leave',
+[\Lab404\Impersonate\Controllers\ImpersonateController::class, 'leave'])->name('impersonate.leave');
 
 Route::get('/docs/{file?}', [DocsController::class, 'index'])->name('docs.index');
 

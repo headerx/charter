@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Lab404\Impersonate\Services\ImpersonateManager;
 
 class ImpersonatedTeam
@@ -20,8 +21,16 @@ class ImpersonatedTeam
         if ($request->user() && $request->user()->isImpersonated()) {
             $impersonator = app(ImpersonateManager::class)->getImpersonator();
             $user = request()->user();
-            $request->session()->put('previous_team_uuid', $user->currentTeam->uuid);
+            $impersonatorTeam = $impersonator->currentTeam;
+            $membership = \App\Charter::membershipInstance($impersonatorTeam, $user);
+
+            if (Gate::forUser($impersonator)->denies('impersonate', $membership)) {
+                abort(403);
+            }
+
+            $request->session()->put('impersonated_team_uuid', $user->currentTeam->uuid);
             $request->session()->put('previous_team_name', $user->currentTeam->name);
+
 
             if (! $user->switchTeam($impersonator->currentTeam)) {
                 abort(403);

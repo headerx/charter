@@ -54,13 +54,25 @@ class MembershipPolicy
      */
     public function update(User $user, Membership $membership)
     {
-        $team = Team::find($membership->team_id);
-        $member = User::find($membership->user_id);
+        $team = Team::findOrFail($membership->team_id);
+        $member = User::findOrFail($membership->user_id);
 
         return $user->ownsTeam($team) ||
         $user->hasTeamRole($team, 'admin') &&
         ! $member->hasTeamRole($team, 'admin') &&
         $member->id !== $user->id;
+    }
+
+    /**
+     * Determine whether the user can update the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Membership  $membership
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function impersonate(User $user, Membership $membership)
+    {
+        return $this->update($user, $membership);
     }
 
     /**

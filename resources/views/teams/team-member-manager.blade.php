@@ -181,16 +181,18 @@
                             @elseif (
                             Gate::check('addTeamMember', $team) &&
                             Laravel\Jetstream\Jetstream::hasRoles() &&
-                            Gate::check('delete', \App\Charter::membershipInstance($team, $user))
+                            Gate::check('update', \App\Charter::membershipInstance($team, $user))
                             )
                             <button class="ml-6 text-sm text-red-500 cursor-pointer"
                                 wire:click="confirmTeamMemberRemoval('{{ $user->uuid }}')">
                                 {{ __('Remove') }}
                             </button>
 
+                            @canImpersonate()
                             <button class="ml-6 text-sm text-indigo-500 cursor-pointer">
                                 <a href="{{ route('impersonate', $user->uuid) }}">{{ __('Manage') }} / {{ _('Assist') }}</a>
                             </button>
+                            @endCanImpersonate
                             @endif
                         </div>
                     </div>
