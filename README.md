@@ -1,4 +1,4 @@
-# The Source Code of HeaderX Charter
+# The Source Code of HeaderX Charter!
 
 ![Tests](https://github.com/headerx/charter/actions/workflows/test.yml/badge.svg)
 ![Styling](https://github.com/headerx/charter/actions/workflows/code-formatting.yml/badge.svg)
