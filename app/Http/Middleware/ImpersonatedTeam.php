@@ -28,9 +28,10 @@ class ImpersonatedTeam
                 abort(403);
             }
 
-            $request->session()->put('impersonated_team_uuid', $user->currentTeam->uuid);
-            $request->session()->put('previous_team_name', $user->currentTeam->name);
-
+            if (! $request->session()->has('impersonated_team_uuid')) {
+                $request->session()->put('impersonated_team_uuid', $user->currentTeam->uuid);
+                $request->session()->put('impersonated_team_name', $user->currentTeam->name);
+            }
 
             if (! $user->switchTeam($impersonator->currentTeam)) {
                 abort(403);

@@ -2,20 +2,13 @@
 
 namespace App\Listeners;
 
+use App\Models\Team;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Lab404\Impersonate\Events\LeaveImpersonation;
 
 class LeaveImpersonationListener
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
 
     /**
      * Handle the event.
@@ -23,8 +16,10 @@ class LeaveImpersonationListener
      * @param  object  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(LeaveImpersonation $event)
     {
-        //
+        $team = Team::where('uuid', session()->get('impersonated_team_uuid'))->firstOrFail();
+
+        $event->impersonated->switchTeam($team);
     }
 }
