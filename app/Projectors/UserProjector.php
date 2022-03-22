@@ -3,12 +3,14 @@
 namespace App\Projectors;
 
 use App\Aggregates\TeamAggregate;
+use App\Models\Team;
 use App\Models\User;
 use App\StorableEvents\MainUserUpdated;
 use App\StorableEvents\UserCreated;
 use App\StorableEvents\UserDeleted;
 use App\StorableEvents\UserPasswordUpdated;
 use App\StorableEvents\UserProfileUpdated;
+use App\StorableEvents\UserSwitchedTeam;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -124,5 +126,13 @@ class UserProjector extends Projector
             ownerUuid: $userUuid,
             personalTeam: true,
         )->persist();
+    }
+
+    public function onUserSwitchedTeam(UserSwitchedTeam $event)
+    {
+        $user = User::whereUuid($event->userUuid)->firstOrFail();
+        $team = Team::whereUuid($event->teamUuid)->firstOrFail();
+
+        $user->switchTeam($team);
     }
 }
