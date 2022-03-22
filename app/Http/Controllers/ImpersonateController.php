@@ -16,14 +16,13 @@ class ImpersonateController extends Lab404ImpersonateController
      */
     public function take(Request $request, $id, $guardName = null)
     {
-
         $team = $request->user()->currentTeam;
         $userToImpersonate = $this->manager->findUserById($id, $guardName);
         $membership = \App\Charter::membershipInstance($team, $userToImpersonate);
-        if(Gate::denies('impersonate', $membership)) {
+        if (Gate::denies('impersonate', $membership)) {
             abort(403);
         }
-        return parent::take($request, $id, $guardName);
 
+        return parent::take($request, $id, $guardName);
     }
 }

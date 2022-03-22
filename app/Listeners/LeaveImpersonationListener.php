@@ -3,13 +3,10 @@
 namespace App\Listeners;
 
 use App\Models\Team;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Lab404\Impersonate\Events\LeaveImpersonation;
 
 class LeaveImpersonationListener
 {
-
     /**
      * Handle the event.
      *

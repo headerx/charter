@@ -29,7 +29,6 @@ class JetstreamServiceProvider extends ServiceProvider
 
         $this->app->afterResolving(BladeCompiler::class, function () {
             if (config('jetstream.stack') === 'livewire' && class_exists(Livewire::class)) {
-
                 if (Features::hasTeamFeatures()) {
                     Livewire::component('teams.team-member-manager', TeamMemberManager::class);
                 }
