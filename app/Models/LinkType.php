@@ -17,6 +17,7 @@ enum LinkType: string
                 return 'Link';
             
             
+            
             // no break
             case LinkType::InternalLink:
                 return 'Local Path (/dashboard)';
