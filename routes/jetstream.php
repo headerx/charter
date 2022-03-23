@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CurrentTeamController as ControllersCurrentTeamController;
+use App\Http\Controllers\JoinTeamController;
 use App\Http\Controllers\TeamController as ControllersTeamController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,8 @@ Route::group(['middleware' => config('jetstream.middleware', ['web'])], function
         // No team yet...
         if (Jetstream::hasTeamFeatures()) {
             Route::get('/create-first-team', [ControllersTeamController::class, 'createFirstTeam'])->name('create-first-team')->middleware('has_no_team');
+
+            Route::get('/join-team', [ControllersTeamController::class, 'joinTeam'])->name('join-team')->middleware('has_no_team');
         }
     });
 });

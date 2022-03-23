@@ -58,4 +58,12 @@ class TeamController extends LivewireTeamController
             'user' => $request->user(),
         ]);
     }
+
+    public function joinTeam(Request $request)
+    {
+
+        return view('teams.invitations', [
+            'user' => $request->user(),
+        ]);
+    }
 }

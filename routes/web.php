@@ -18,10 +18,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 |
 */
 
-Route::get('/impersonate/take/{id}/{guardName?}',[ImpersonateController::class, 'take'])->name('impersonate');
-Route::get('/impersonate/leave',
-[\Lab404\Impersonate\Controllers\ImpersonateController::class, 'leave'])->name('impersonate.leave');
-
 Route::get('/docs/{file?}', [DocsController::class, 'index'])->name('docs.index');
 
 Route::get('/', function () {
@@ -39,9 +35,25 @@ Route::get('/guest-iframe/billing',function(){
     return view('iframes::jetstream.guest-iframe',['iframeSource' => '/billing']);
 })->name('guest-iframe.billing');
 
-Route::middleware(['auth:web', 'charter.user', 'has_team'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+$authMiddleware = config('jetstream.guard')
+? 'auth:'.config('jetstream.guard')
+: 'auth';
+
+Route::group(['middleware' => [$authMiddleware, 'has_team', 'verified']], function () {
+    Route::get('/impersonate/take/{id}/{guardName?}', [ImpersonateController::class, 'take'])->name('impersonate');
+    Route::get(
+        '/impersonate/leave',
+        [\Lab404\Impersonate\Controllers\ImpersonateController::class, 'leave']
+    )->name('impersonate.leave');
+
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
+
+
+
+
 
 Route::middleware(['auth:web', 'charter.user'])->get('/id', function (Request $request) {
     dd(auth());
