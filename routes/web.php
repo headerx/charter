@@ -5,6 +5,7 @@ use App\Http\Controllers\ImpersonateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
+use Softnweb\ComingSoon\Http\Controllers\ComingSoonController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /*
@@ -24,13 +25,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/billing',function(){
+Route::post('/',[ComingSoonController::class, 'send'])->name('coming-soon.send');
+
+Route::any('/billing',function(){
     $value = config('billing');
     $dt = Carbon::create($value['snw_year'], $value['snw_month'], $value['snw_day'], $value['snw_hours'] , $value['snw_minutes'],$value['snw_seconds']);
     return view('comingsoon::comingsoon',compact('value','dt'));
 })->name('billing');
 
-Route::get('/guest-iframe/billing',function(){
+Route::any('/guest-iframe/billing',function(){
 
     return view('iframes::jetstream.guest-iframe',['iframeSource' => '/billing']);
 })->name('guest-iframe.billing');

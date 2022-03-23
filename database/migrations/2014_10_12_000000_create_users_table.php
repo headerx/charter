@@ -19,7 +19,6 @@ return new class extends Migration
             $table->id();
             $table->string('type')->default(UserType::User->value);
             $table->boolean('is_active')->default(true);
-            $table->boolean('is_main_user')->default(false);
             $table->string('name')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
