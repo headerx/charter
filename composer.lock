@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8c4a22dcb08060f651e5409914eee2d1",
+    "content-hash": "10af02b28c5a0c96960eb503375e7e9d",
     "packages": [
         {
             "name": "andreiio/blade-iconoir",
@@ -8085,6 +8085,53 @@
                 "source": "https://github.com/ryangjchandler/blade-tabler-icons/tree/v1.3.0"
             },
             "time": "2022-02-09T16:04:32+00:00"
+        },
+        {
+            "name": "softnweb/laravel-coming-soon",
+            "version": "1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SoftNWeb/laravel-coming-soon.git",
+                "reference": "eef6242726b562d7bb9c13f069345980c3477aac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SoftNWeb/laravel-coming-soon/zipball/eef6242726b562d7bb9c13f069345980c3477aac",
+                "reference": "eef6242726b562d7bb9c13f069345980c3477aac",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Softnweb\\ComingSoon\\ComingSoonServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Softnweb\\ComingSoon\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Soft 'n' Web",
+                    "email": "info@softnweb.in"
+                }
+            ],
+            "description": "Simple Comming Soon page",
+            "keywords": [
+                "coming-soon"
+            ],
+            "support": {
+                "issues": "https://github.com/SoftNWeb/laravel-coming-soon/issues",
+                "source": "https://github.com/SoftNWeb/laravel-coming-soon/tree/1.2"
+            },
+            "time": "2019-06-04T08:27:27+00:00"
         },
         {
             "name": "spatie/better-types",

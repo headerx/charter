@@ -40,6 +40,6 @@ class CreateTeam implements CreatesTeams
 
     public function redirectTo()
     {
-        return route('teams.show', Auth::user()->currentTeam->uuid);
+        return route('teams.show', Auth::user()->fresh()->currentTeam->uuid);
     }
 }

@@ -20,6 +20,7 @@
         "laravel/telescope": "^4.7",
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.5",
+        "softnweb/laravel-coming-soon": "^1.2",
         "spatie/laravel-event-sourcing": "^7.2"
     },
     "require-dev": {

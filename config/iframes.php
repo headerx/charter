@@ -7,6 +7,7 @@ return [
     'middleware' => [
         'web',
         'auth',
+        'has_team',
     ],
 
     /**

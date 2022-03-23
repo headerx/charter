@@ -38,7 +38,7 @@ class CreateNewUser implements CreatesNewUsers
                 name: $input['name'],
                 email: $input['email'],
                 password: $input['password'],
-                withPersonalTeam: true,
+                withPersonalTeam: false,
             )->persist();
 
             return User::whereUuid($uuid)->first();

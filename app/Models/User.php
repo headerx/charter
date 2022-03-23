@@ -79,4 +79,9 @@ class User extends Authenticatable
     {
         return $this->uuidColumn();
     }
+
+    public function isMemberOfATeam()
+    {
+        return $this->allTeams()->count() > 0;
+    }
 }

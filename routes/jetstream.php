@@ -4,9 +4,9 @@ use App\Http\Controllers\CurrentTeamController as ControllersCurrentTeamControll
 use App\Http\Controllers\TeamController as ControllersTeamController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use Laravel\Jetstream\Http\Controllers\CurrentTeamController;
 use Laravel\Jetstream\Http\Controllers\Livewire\ApiTokenController;
 use Laravel\Jetstream\Http\Controllers\Livewire\PrivacyPolicyController;
-use Laravel\Jetstream\Http\Controllers\Livewire\TeamController;
 use Laravel\Jetstream\Http\Controllers\Livewire\TermsOfServiceController;
 use Laravel\Jetstream\Http\Controllers\Livewire\UserProfileController;
 use Laravel\Jetstream\Http\Controllers\TeamInvitationController;
@@ -23,24 +23,32 @@ Route::group(['middleware' => config('jetstream.middleware', ['web'])], function
             : 'auth';
 
     Route::group(['middleware' => [$authMiddleware, 'verified']], function () {
-        // User & Profile...
-        Route::get('/user/profile', [UserProfileController::class, 'show'])
+        Route::group(['middleware' => ['has_team']], function () {
+
+            // User & Profile...
+            Route::get('/user/profile', [UserProfileController::class, 'show'])
                     ->name('profile.show');
 
-        // API...
-        if (Jetstream::hasApiFeatures()) {
-            Route::get('/user/api-tokens', [ApiTokenController::class, 'index'])->name('api-tokens.index');
-        }
+            // API...
+            if (Jetstream::hasApiFeatures()) {
+                Route::get('/user/api-tokens', [ApiTokenController::class, 'index'])->name('api-tokens.index');
+            }
 
-        // Teams...
-        if (Jetstream::hasTeamFeatures()) {
-            Route::get('/teams/create', [TeamController::class, 'create'])->name('teams.create');
-            Route::get('/teams/{team}', [ControllersTeamController::class, 'show'])->name('teams.show');
-            Route::put('/current-team', [ControllersCurrentTeamController::class, 'update'])->name('current-team.update')->can('updateTeam', User::class);
+            // Teams...
+            if (Jetstream::hasTeamFeatures()) {
+                Route::get('/teams/create', [CurrentTeamController::class, 'create'])->name('teams.create');
+                Route::get('/create-first-team', [ControllersTeamController::class, 'createFirstTeam'])->name('create-first-team')->middleware('has_no_team');
+                Route::get('/teams/{team}', [ControllersTeamController::class, 'show'])->name('teams.show');
+                Route::put('/current-team', [ControllersCurrentTeamController::class, 'update'])->name('current-team.update')->can('updateTeam', User::class);
 
-            Route::get('/team-invitations/{invitation:uuid}', [TeamInvitationController::class, 'accept'])
+                Route::get('/team-invitations/{invitation:uuid}', [TeamInvitationController::class, 'accept'])
                         ->middleware(['signed'])
                         ->name('team-invitations.accept');
+            }
+        });
+        // No team yet...
+        if (Jetstream::hasTeamFeatures()) {
+            Route::get('/create-first-team', [ControllersTeamController::class, 'createFirstTeam'])->name('create-first-team')->middleware('has_no_team');
         }
     });
 });

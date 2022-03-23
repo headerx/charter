@@ -3,7 +3,9 @@
 use App\Http\Controllers\DocsController;
 use App\Http\Controllers\ImpersonateController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +28,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:web', 'charter.user'])->get('/dashboard', function () {
+Route::get('/billing',function(){
+    $value = config('billing');
+    $dt = Carbon::create($value['snw_year'], $value['snw_month'], $value['snw_day'], $value['snw_hours'] , $value['snw_minutes'],$value['snw_seconds']);
+    return view('comingsoon::comingsoon',compact('value','dt'));
+})->name('billing');
+
+Route::get('/guest-iframe/billing',function(){
+
+    return view('iframes::jetstream.guest-iframe',['iframeSource' => '/billing']);
+})->name('guest-iframe.billing');
+
+Route::middleware(['auth:web', 'charter.user', 'has_team'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
@@ -36,4 +49,8 @@ Route::middleware(['auth:web', 'charter.user'])->get('/id', function (Request $r
 
 Route::get('memberships/{membership}', function (\App\Models\Membership $membership) {
     return $membership->toJson();
+});
+
+Route::get('/contact', function () {
+    abort(404);
 });

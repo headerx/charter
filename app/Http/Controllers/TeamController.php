@@ -44,4 +44,18 @@ class TeamController extends LivewireTeamController
             'user' => $request->user(),
         ]);
     }
+
+        /**
+     * Show the team creation screen.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
+    public function createFirstTeam(Request $request)
+    {
+
+        return view('teams.create-first-team', [
+            'user' => $request->user(),
+        ]);
+    }
 }
