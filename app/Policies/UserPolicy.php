@@ -53,13 +53,14 @@ class UserPolicy
      */
     public function updateUserType(User $user)
     {
-        if($user->isImpersonated()) {
+        if ($user->isImpersonated()) {
             $impersonator = app(ImpersonateManager::class)->getImpersonator();
+
             return $impersonator->type === UserType::SuperAdmin;
         }
+
         return false;
     }
-
 
     /**
      * Determine whether the user can update the model.

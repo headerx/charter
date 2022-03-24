@@ -45,7 +45,7 @@ class TeamController extends LivewireTeamController
         ]);
     }
 
-        /**
+    /**
      * Show the team creation screen.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -53,7 +53,7 @@ class TeamController extends LivewireTeamController
      */
     public function createFirstTeam(Request $request)
     {
-        if(Gate::allows('create', Jetstream::newTeamModel()) && $request->user()->isMemberOfATeam()){
+        if (Gate::allows('create', Jetstream::newTeamModel()) && $request->user()->isMemberOfATeam()) {
             return to_route('teams.create');
         }
 
@@ -64,7 +64,6 @@ class TeamController extends LivewireTeamController
 
     public function joinTeam(Request $request)
     {
-
         return view('teams.invitations', [
             'user' => $request->user(),
         ]);

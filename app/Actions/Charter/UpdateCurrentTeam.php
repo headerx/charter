@@ -6,7 +6,6 @@ use App\Aggregates\UserAggregate;
 use App\Contracts\UpdatesCurrentTeam;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\UnauthorizedException;
-use Laravel\Jetstream\Jetstream;
 
 class UpdateCurrentTeam implements UpdatesCurrentTeam
 {
@@ -25,4 +24,3 @@ class UpdateCurrentTeam implements UpdatesCurrentTeam
         }
     }
 }
-

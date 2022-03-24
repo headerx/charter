@@ -21,7 +21,6 @@ class UpdateUserType implements UpdatesUserType
      */
     public function update($user, array $input)
     {
-
         Gate::forUser($user)->authorize('updateUserType', User::class);
 
         Validator::make($input, [
@@ -33,6 +32,5 @@ class UpdateUserType implements UpdatesUserType
         $userAggregate->updateUserType(
             type: $input['user_type'],
         )->persist();
-
     }
 }

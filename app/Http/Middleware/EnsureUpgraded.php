@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use Auth;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -19,9 +18,10 @@ class EnsureUpgraded
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Gate::denies('create', Jetstream::newTeamModel())) {
+        if (Gate::denies('create', Jetstream::newTeamModel())) {
             return redirect()->route('create-first-team');
         }
+
         return $next($request);
     }
 }

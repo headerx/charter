@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -23,6 +22,5 @@ class UserCanCreateFirstTeamTest extends TestCase
         ]);
 
         $this->assertTrue(auth()->user()->isMemberOfATeam());
-
     }
 }

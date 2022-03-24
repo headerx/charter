@@ -11,7 +11,7 @@ use Laravel\Jetstream\TeamInvitation;
 
 class TeamInvitationController extends JetstreamTeamInvitationController
 {
-       /**
+    /**
      * Accept a team invitation.
      *
      * @param  \Illuminate\Http\Request  $request
