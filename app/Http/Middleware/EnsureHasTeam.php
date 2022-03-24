@@ -27,7 +27,7 @@ class EnsureHasTeam
             return;
         }
 
-        $firstTeamId = $request->user()->allTeams()->first()->id;
-        $updater->update($request->user(), ['team_uuid' => $firstTeamId]);
+        $firstTeamUuid = $request->user()->allTeams()->first()->uuid;
+        $updater->update($request->user(), ['team_uuid' => $firstTeamUuid]);
     }
 }

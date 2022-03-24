@@ -70,5 +70,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'charter.domain' => \App\Http\Middleware\EnsureTeamForDomain::class,
         'charter.user' => \App\Http\Middleware\EnsureTeamForUser::class,
+        'upgraded' => \App\Http\Middleware\EnsureUpgraded::class,
     ];
 }

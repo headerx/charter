@@ -5,12 +5,14 @@ namespace App\Projectors;
 use App\Aggregates\TeamAggregate;
 use App\Models\Team;
 use App\Models\User;
+use App\Models\UserType;
 use App\StorableEvents\MainUserUpdated;
 use App\StorableEvents\UserCreated;
 use App\StorableEvents\UserDeleted;
 use App\StorableEvents\UserPasswordUpdated;
 use App\StorableEvents\UserProfileUpdated;
 use App\StorableEvents\UserSwitchedTeam;
+use App\StorableEvents\UserTypeUpdated;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -48,6 +50,7 @@ class UserProjector extends Projector
             'name' => $event->name,
             'email' => $event->email,
             'password' => Hash::make($event->password),
+            'type' => User::count() === 0 ? UserType::SuperAdmin : UserType::User,
         ]);
 
         $teamUuid = $event->teamUuid ?
@@ -134,5 +137,14 @@ class UserProjector extends Projector
         $team = Team::whereUuid($event->teamUuid)->firstOrFail();
 
         $user->switchTeam($team);
+    }
+
+    public function onUserTypeUpdated(UserTypeUpdated $event)
+    {
+        $user = User::whereUuid($event->userUuid)->firstOrFail();
+
+        $user->forceFill([
+            'type' => $event->userType,
+        ])->save();
     }
 }

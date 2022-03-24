@@ -20,7 +20,6 @@ class UpdateCurrentTeam implements UpdatesCurrentTeam
 
         if (! $userAggregate->switchUserTeam(
             teamUuid: $input['team_uuid'],
-            previousTeamUuid: $user->currentTeam->uuid,
         )->persist()) {
             throw new UnauthorizedException('You are not authorized to switch teams.');
         }

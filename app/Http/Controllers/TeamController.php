@@ -53,6 +53,9 @@ class TeamController extends LivewireTeamController
      */
     public function createFirstTeam(Request $request)
     {
+        if(Gate::allows('create', Jetstream::newTeamModel()) && $request->user()->isMemberOfATeam()){
+            return to_route('teams.create');
+        }
 
         return view('teams.create-first-team', [
             'user' => $request->user(),

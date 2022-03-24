@@ -4,12 +4,11 @@ namespace App\StorableEvents;
 
 use Spatie\EventSourcing\StoredEvents\ShouldBeStored;
 
-class UserSwitchedTeam extends ShouldBeStored
+class UserTypeUpdated extends ShouldBeStored
 {
     public function __construct(
         public string $userUuid,
-        public string $teamUuid,
-    )
-    {
+        public string $userType,
+    ) {
     }
 }

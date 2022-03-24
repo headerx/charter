@@ -8,6 +8,7 @@ use App\StorableEvents\UserDeleted;
 use App\StorableEvents\UserPasswordUpdated;
 use App\StorableEvents\UserProfileUpdated;
 use App\StorableEvents\UserSwitchedTeam;
+use App\StorableEvents\UserTypeUpdated;
 use Spatie\EventSourcing\AggregateRoots\AggregateRoot;
 
 class UserAggregate extends AggregateRoot
@@ -89,13 +90,24 @@ class UserAggregate extends AggregateRoot
 
     public function switchUserTeam(
         string $teamUuid,
-        string $previousTeamUuid,
     ) {
         $this->recordThat(
             new UserSwitchedTeam(
                 userUuid: $this->uuid(),
                 teamUuid: $teamUuid,
-                previousTeamUuid: $previousTeamUuid,
+            )
+        );
+
+        return $this;
+    }
+
+    public function updateUserType(
+        string $type,
+    ) {
+        $this->recordThat(
+            new UserTypeUpdated(
+                userUuid: $this->uuid(),
+                userType: $type,
             )
         );
 

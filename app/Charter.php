@@ -8,6 +8,7 @@ use App\Contracts\UpdatesCurrentTeam;
 use App\Contracts\UpdatesLink;
 use App\Contracts\UpdatesTeamDomains;
 use App\Contracts\UpdatesTeamLogo;
+use App\Contracts\UpdatesUserType;
 use App\Models\Membership;
 use App\Models\Team;
 use App\Models\User;
@@ -15,6 +16,17 @@ use Illuminate\Http\Request;
 
 class Charter
 {
+    /**
+     * Register a class / callback that should be used to create a link.
+     *
+     * @param  string  $callback
+     * @return void
+     */
+    public static function updateUserTypesUsing(string $callback)
+    {
+        app()->singleton(UpdatesUserType::class, $callback);
+    }
+
     /**
      * Register a class / callback that should be used to create a link.
      *

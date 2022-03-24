@@ -3,7 +3,9 @@
 namespace App\Policies;
 
 use App\Models\User;
+use App\Models\UserType;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Lab404\Impersonate\Services\ImpersonateManager;
 
 class UserPolicy
 {
@@ -42,6 +44,22 @@ class UserPolicy
     {
         //
     }
+
+    /**
+     * Determine whether the user can create models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function updateUserType(User $user)
+    {
+        if($user->isImpersonated()) {
+            $impersonator = app(ImpersonateManager::class)->getImpersonator();
+            return $impersonator->type === UserType::SuperAdmin;
+        }
+        return false;
+    }
+
 
     /**
      * Determine whether the user can update the model.

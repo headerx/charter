@@ -3,6 +3,7 @@
 use App\Http\Controllers\CurrentTeamController as ControllersCurrentTeamController;
 use App\Http\Controllers\JoinTeamController;
 use App\Http\Controllers\TeamController as ControllersTeamController;
+use App\Http\Controllers\TeamInvitationController as ControllersTeamInvitationController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Http\Controllers\CurrentTeamController;
@@ -37,21 +38,23 @@ Route::group(['middleware' => config('jetstream.middleware', ['web'])], function
 
             // Teams...
             if (Jetstream::hasTeamFeatures()) {
-                Route::get('/teams/create', [CurrentTeamController::class, 'create'])->name('teams.create');
+                Route::get('/teams/create', [ControllersTeamController::class, 'create'])->name('teams.create')->middleware('upgraded');
                 Route::get('/create-first-team', [ControllersTeamController::class, 'createFirstTeam'])->name('create-first-team')->middleware('has_no_team');
                 Route::get('/teams/{team}', [ControllersTeamController::class, 'show'])->name('teams.show');
                 Route::put('/current-team', [ControllersCurrentTeamController::class, 'update'])->name('current-team.update')->can('updateTeam', User::class);
 
-                Route::get('/team-invitations/{invitation:uuid}', [TeamInvitationController::class, 'accept'])
-                        ->middleware(['signed'])
-                        ->name('team-invitations.accept');
             }
         });
         // No team yet...
         if (Jetstream::hasTeamFeatures()) {
-            Route::get('/create-first-team', [ControllersTeamController::class, 'createFirstTeam'])->name('create-first-team')->middleware('has_no_team');
 
-            Route::get('/join-team', [ControllersTeamController::class, 'joinTeam'])->name('join-team')->middleware('has_no_team');
+            Route::get('/team-invitations/{invitation:uuid}', [ControllersTeamInvitationController::class, 'accept'])
+            ->middleware(['signed'])
+            ->name('team-invitations.accept');
+
+            Route::get('/create-first-team', [ControllersTeamController::class, 'createFirstTeam'])->name('create-first-team');
+
+            Route::get('/join-team', [ControllersTeamController::class, 'joinTeam'])->name('join-team');
         }
     });
 });

@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\Team;
 use App\Models\User;
+use App\Models\UserType;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class TeamPolicy
@@ -41,7 +42,11 @@ class TeamPolicy
      */
     public function create(User $user)
     {
-        return false;
+        return app()->environment('testing') ||
+            $user->type === UserType::SuperAdmin ||
+            $user->type === UserType::Admin ||
+            $user->type === UserType::UpgradedUser ||
+            $user->subscribed('default');
     }
 
     /**
