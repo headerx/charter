@@ -51,20 +51,6 @@ class UserFactory extends Factory
     }
 
     /**
-     * Indicate that the model is a main user.
-     *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
-     */
-    public function mainUser()
-    {
-        return $this->state(function (array $attributes) {
-            return [
-                'is_main_user' => true,
-            ];
-        });
-    }
-
-    /**
      * Indicate that the user should have a personal team.
      *
      * @return $this
